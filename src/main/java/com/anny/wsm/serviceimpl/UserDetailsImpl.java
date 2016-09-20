@@ -1,0 +1,77 @@
+package com.anny.wsm.serviceimpl;
+
+
+import com.anny.wsm.model.Role;
+import com.anny.wsm.model.Users;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.io.Serializable;
+import java.util.*;
+
+public class UserDetailsImpl implements Serializable, UserDetails{
+
+	private static final long serialVersionUID = 2755218805643703788L;
+
+    private final String username;
+    private final String password;
+    private final boolean isEnabled;
+    private final List<GrantedAuthority> authorities;
+    
+    public UserDetailsImpl(final Users user) {
+    	this.username = user.getUsername();
+    	this.password = user.getPassword();
+    	this.isEnabled = user.isEnabled();
+    	Set<Role> roleSet = user.getUserRoles();
+    	authorities = new ArrayList<GrantedAuthority>();
+        Iterator<Role> roleIterator = roleSet.iterator();
+        while(roleIterator.hasNext()) {
+        	Role currentRole = roleIterator.next();
+        	authorities.add(new SimpleGrantedAuthority(currentRole.getRole()));
+        }
+    	
+    }
+    
+
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		// TODO Auto-generated method stub
+		return authorities;
+	}
+
+
+	public String getPassword() {
+		// TODO Auto-generated method stub
+		return this.password;
+	}
+
+
+	public String getUsername() {
+		// TODO Auto-generated method stub
+		return this.username;
+	}
+
+
+	public boolean isAccountNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	public boolean isAccountNonLocked() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	public boolean isCredentialsNonExpired() {
+		// TODO Auto-generated method stub
+		return true;
+	}
+
+
+	public boolean isEnabled() {
+		// TODO Auto-generated method stub
+		return this.isEnabled;
+	}
+}

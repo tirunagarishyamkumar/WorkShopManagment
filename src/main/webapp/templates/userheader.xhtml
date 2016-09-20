@@ -1,0 +1,56 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+ <f:metadata>
+    	<f:event type="preRenderView" listener="#{loginAuthenticationBean.loadUserIntoSession}" />
+    </f:metadata>
+<div>
+	<h:form>
+		<p:growl id="messages" />
+		<!-- Need to add authorization based on role here -->
+		<p:menubar>		
+			<p:menuitem value="Home" url="/admin/adminhomepage.jsf" />			
+			<p:submenu style="margin-left: 10px;" label="Bulk Payment" rendered="#{loginAuthenticationBean.hasAccess('JB01')}">
+			<p:menuitem value="New Salary Job" url="/job/salarynewjob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0103')}"/>	
+			<p:menuitem value="Job Listing" url="/job/listjob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0102')}"/>	
+			<p:submenu  label="New Job" rendered="#{loginAuthenticationBean.hasAccess('JB01')}">
+			<p:menuitem value="New SAGA Job" url="/job/newJobDetails.jsf" rendered="#{loginAuthenticationBean.hasAccess('JB0101')}"/>
+			<p:menuitem value="New MACS Job " url="/job/newmacsjob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0104')}"/>	
+			<p:menuitem value="New Excel Job " url="/job/newExcelJob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0105')}"/>
+			</p:submenu>				
+			</p:submenu>	
+			<p:submenu style="margin-left: 10px;" label="Reports" rendered="#{loginAuthenticationBean.hasAccess('JB02')}">	
+			<p:menuitem value="Generate AG Statement" url="/report/agstatement.jsf" rendered="#{loginAuthenticationBean.hasAccess('JB0201')}"/>		
+			</p:submenu>	
+			<p:submenu style="margin-left: 10px;" label="House Keeping" rendered="#{loginAuthenticationBean.hasAccess('HK')}">	
+			<p:menuitem value="Restore Records" url="/housekeeping/restore.jsf" rendered="#{loginAuthenticationBean.hasAccess('HK01')}"/>		
+			</p:submenu>	
+			<p:submenu style="margin-left: 10px;" label="Settings" rendered="#{loginAuthenticationBean.hasAccess('SY')}">
+			 <p:menuitem value="Parameters" url="/admin/systemparameters.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY01')}"/>
+			 <p:menuitem value="Scheduler" url="/admin/systemscheduler.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY02')}"/>
+			 <p:menuitem value="Branch Codes" url="/admin/branchcodes.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY03')}"/>
+				<p:submenu label="Security" rendered="#{loginAuthenticationBean.hasAccess('SY04')}">
+				   <p:menuitem value="Users" url="/admin/adduser.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0401')}"/>
+				   <p:menuitem value="Groups" url="/admin/groups.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0402')}"/>
+				   <p:menuitem value="Access Rights" url="/admin/accessrights.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0403')}"/>
+				   <p:menuitem value="Audit Logs" url="/admin/systemaudittrail.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0404')}"/>
+				  <p:menuitem value="Access Logs" url="/admin/accesslog.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0405')}"/>
+					<p:menuitem value="Change Password" url="/admin/adminchangepassword.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0406')}"/>	
+			    </p:submenu>
+			</p:submenu>
+			
+			
+			<f:facet name="options" >
+				<span style="margin-bottom: 10px;margin-top: 7px;display:inline-block;">
+            	 Welcome  <h:outputText style="margin-right:10px" value="#{loginAuthenticationBean.username}"/>| &#160;<p:link value="Logout" href="/logout.jsf" /> 
+            	 &#160;&#160;&#160;<!--  <h:graphicImage name="user.png" library="images" width="45px" height="30px"></h:graphicImage> --></span> 
+        	</f:facet>
+		</p:menubar>
+	</h:form>
+</div>
+
+</ui:composition>

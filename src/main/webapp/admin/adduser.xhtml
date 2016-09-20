@@ -1,0 +1,138 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+	
+  <ui:composition template="/templates/userlayout.xhtml">
+ 	<ui:define name="title">Users</ui:define>
+ 	<ui:define name="content">
+ 	<table width="100%">
+        <tr>
+          	<td align="right">
+ 	 			<span style="color: grey;" >SY0401</span>
+ 			</td>
+        </tr>
+        
+        <tr>      
+	      	 <td>
+				<h1>Users Management</h1>
+			 </td>
+ 		</tr>
+ 	</table> 
+
+ 	 <h:form>
+ 	 	<!-- <p:commandButton value="Add New"  update=":newUserForm"  rendered="#{loginAuthenticationBean.hasAccess('SY0401C')}" oncomplete="PF('newUserDialog').show()" actionListener="#{usersManagedBean.populatePickList()}" icon="ui-icon-star" title="Add New User"/> -->
+ 	 	<p:commandButton value="Add New" ajax="false" actionListener="#{usersManagedBean.showDailogue}" rendered="#{loginAuthenticationBean.hasAccess('SY0401C')}" update=":newUserForm" />
+ 	 </h:form>
+ 	 <br/><br/>
+	<h:form id="userTableForm">
+	<p:messages autoUpdate="true" globalOnly="true"/>
+        <p:dataTable id="userTable" widgetVar="usersTable"   var="user" value="#{usersManagedBean.usersDataModel}" rowKey="#{user.id}"
+                 selection="#{usersManagedBean.selectedUser}" selectionMode="single" 
+                 rows="20" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100" >
+          <p:ajax event="rowSelect" listener="#{usersManagedBean.onRowSelect}"  update=":userDetailForm:display, :growl" />  
+	          <p:column width="10%" id="nameHeader" sortBy="#{user.username}"><f:facet name="header"> Username </f:facet> <h:outputText value="#{user.username}" /></p:column>
+	          <p:column width="10%" id="branchHeader"  sortBy="#{user.branchNo}" ><f:facet name="header"> Branch No </f:facet><h:outputText value="#{user.branchNo}" /></p:column>
+	          <p:column width="10%" id="controlHeader"  sortBy="#{user.controlUnit}" ><f:facet name="header"> Control Unit </f:facet><h:outputText value="#{user.controlUnit}" /></p:column>	        
+	          <p:column width="10%" id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{user.createdBy}" /></p:column>
+	          <p:column width="15%" id="createdTimeHeader"  sortBy="#{user.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{user.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+	         
+	          <p:column width="15%" id="lastModifiedByHeader"  sortBy="#{user.lastModifiedBy}" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{user.lastModifiedBy}" /></p:column>
+	          <p:column  width="15%" id="lastModifiedHeader"  sortBy="#{user.lastModifiedTime}" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{user.lastModifiedTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+      </p:dataTable>
+    </h:form>
+    <br/>
+    <p:growl id="growl" life="1000"/> 
+ 	 		
+ 	    <p:dialog header="User Details" styleClass="dlgCSS"  widgetVar="userDialog" resizable="false" id="userDlg" modal ="true">
+               <h:form id="userDetailForm">
+               <p:messages autoUpdate="true"/>
+                <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+                	<h:outputText value="Name :"></h:outputText>	
+                    	<p:inputText value="#{usersManagedBean.selectedUser.name}" required="true" requiredMessage="Please Enter Name!" label="Name ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
+            		
+            		<h:outputText value="Branch Code :"></h:outputText>	
+                    	<p:selectOneMenu value="#{usersManagedBean.selectedUser.branchNo}" effect="fade" required="true" requiredMessage="Please Select Branch Code!" >
+						<p:ajax listener="#{usersManagedBean.getSelectedControlUnits}" update="controlUnit" />
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{usersManagedBean.branchCodes}" var="branchCodeObject" itemLabel="#{branchCodeObject.branchCode}-#{branchCodeObject.description}" itemValue="#{branchCodeObject.branchCode}" />
+						</p:selectOneMenu>
+            		<h:outputText value="Control Unit :"></h:outputText>
+                        <p:selectOneMenu value="#{usersManagedBean.selectedUser.controlUnit}" id="controlUnit" effect="fade" required="true" requiredMessage="Please Select Control Unit!" >
+ 						<f:selectItem itemLabel="Select One" itemValue="#{usersManagedBean.selectedUser.controlUnit}" />
+ 						<f:selectItems value="#{usersManagedBean.controlUnitsList}" var="controlUnitObject" itemLabel="#{controlUnitObject.controlUnit}" itemValue="#{controlUnitObject.controlUnit}"  />
+ 						</p:selectOneMenu>
+                    
+                     <h:outputText value="Email :"></h:outputText>	
+                    	<p:inputText value="#{usersManagedBean.selectedUser.email}" required="true" requiredMessage="Please Enter Email!" >  <f:validateLength minimum="4" maximum="30"/>
+                    	</p:inputText>
+                    	
+                    	
+                    	<h:outputText value="Assign Groups :"></h:outputText>
+                      	<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
+	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
+	          	 			<f:facet name="sourceCaption">Unassigned  Roles</f:facet>  
+	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
+          				</p:pickList>
+                    <f:facet name="footer">
+                            <p:commandButton value="Update" rendered="#{loginAuthenticationBean.hasAccess('SY0401E')}"  update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('userDialog').hide()" actionListener="#{usersManagedBean.doUpdateUser}" validateClient="true"/>
+                            <p:commandButton value="Delete"  rendered="#{loginAuthenticationBean.hasAccess('SY0401D')}"  onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
+                    </f:facet>
+                </p:panelGrid>
+             </h:form>
+      </p:dialog>
+          
+      <p:dialog header="Add New User" styleClass="dlgCSS" widgetVar="newUserDialog" resizable="false" id="newUserDlg"  modal ="true">
+              <h:form id="newUserForm">
+              <p:messages autoUpdate="true"/>
+                <p:panelGrid id="displayNewUser" columns="2" cellpadding="4" style="margin:0 auto;">
+                	<h:outputText value="Name :"></h:outputText>	
+                    	<p:inputText value="#{usersManagedBean.newUser.name}" required="true" requiredMessage="Please Enter Name!" label="Name ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
+            		<h:outputText value="Username :"></h:outputText>
+                        <p:focus><p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>  (Mapped to Active Directory)</p:focus>
+            		
+            		<h:outputText value="Branch Code :"></h:outputText>	
+                    	<p:selectOneMenu value="#{usersManagedBean.newUser.branchNo}" effect="fade" required="true" requiredMessage="Please Select Branch Code!" >
+                    	<p:ajax listener="#{usersManagedBean.getControlUnits}" update="controlUnit" />
+						<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
+						<f:selectItems value="#{usersManagedBean.branchCodes}" var="branchCodeObject" itemLabel="#{branchCodeObject.branchCode}-#{branchCodeObject.description}" itemValue="#{branchCodeObject.branchCode}"  />
+						</p:selectOneMenu>
+            		
+            		  <h:outputText value="Control Unit :"></h:outputText>
+            		    <p:selectOneMenu value="#{usersManagedBean.newUser.controlUnit}" id="controlUnit" effect="fade" required="true" requiredMessage="Please Select Control Unit!" >
+						<f:selectItem itemLabel="Select One" itemValue="" />
+						<f:selectItems value="#{usersManagedBean.controlUnitsList}" var="controlUnitObject" itemLabel="#{controlUnitObject.controlUnit}" itemValue="#{controlUnitObject.controlUnit}"  />						
+						</p:selectOneMenu>
+						            		                  	
+                  	<h:outputText value="Email :"></h:outputText>	
+                    	<p:inputText value="#{usersManagedBean.newUser.email}" required="true" requiredMessage="Please Enter Email!"  label="Email ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
+                    	<h:outputText value="Assign Groups :"></h:outputText>
+                      
+    					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
+	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
+	          		
+	          		
+	          	 			<f:facet name="sourceCaption">Unassigned  Groups</f:facet>  
+	        				<f:facet name="targetCaption">Assigned Groups</f:facet>  
+          				</p:pickList>
+                    	<f:facet name="footer">
+                            <p:commandButton value="Submit" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('newUserDialog').hide()" validateClient="true" actionListener="#{usersManagedBean.doCreateUser}"/>
+                            <p:commandButton value="Cancel" oncomplete="PF('newUserDialog').hide()"></p:commandButton>
+                    	</f:facet>
+                </p:panelGrid>
+              </h:form>
+      </p:dialog>
+          
+          <p:confirmDialog message="Are you sure?" header="Deleting User" 
+          	severity="alert" widgetVar="cd">	
+			<h:form>
+			<p:commandButton value="Yes" actionListener="#{usersManagedBean.doDeleteUser}" update=":userTableForm:userTable" oncomplete="PF('cd').hide();"/>
+			<p:commandButton value="No" onclick="PF('cd').hide();PF('userDialog').show();" type="button" />
+			</h:form>
+			</p:confirmDialog>
+		</ui:define>
+		</ui:composition>
+		<br/><br/>
+</ui:composition>

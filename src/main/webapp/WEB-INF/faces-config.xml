@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-facesconfig_2_1.xsd"
+	version="2.1">
+
+	<application>
+		<el-resolver>org.springframework.web.jsf.el.SpringBeanFacesELResolver</el-resolver>	
+	</application>
+
+	<lifecycle>
+		<phase-listener>com.agrobank.bft.listener.MultiPageMessagesSupport</phase-listener>
+	</lifecycle>
+	
+		<validator>
+		<validator-id >BFTValidator</validator-id>
+		<validator-class>com.agrobank.bft.validator.BFTValidator</validator-class>
+		</validator>
+	   <navigation-rule>
+        <from-view-id>/job/salarynewjob.xhtml</from-view-id>
+        <navigation-case>
+        <from-action>#{paymentJobMasterManagedBean.insertSalNewJobDetails}</from-action>
+       <from-outcome>redirectToListJob</from-outcome>
+       <to-view-id>/job/listjob.xhtml</to-view-id>
+       <redirect/>
+        </navigation-case>
+        </navigation-rule>
+		
+		<navigation-rule>
+        <from-view-id>/job/newmacsjob.xhtml</from-view-id>
+        <navigation-case>
+        <from-action>#{paymentJobMasterManagedBean.insertMacJobDetails}</from-action>
+       <from-outcome>redirectToListJob</from-outcome>
+       <to-view-id>/job/listjob.xhtml</to-view-id>
+       <redirect/>
+        </navigation-case>
+        </navigation-rule>
+		
+		<navigation-rule>
+        <from-view-id>/job/newExcelJob.xhtml</from-view-id>
+        <navigation-case>
+        <from-action>#{paymentJobMasterManagedBean.insertExcelJobDetails}</from-action>
+       <from-outcome>redirectToListJob</from-outcome>
+       <to-view-id>/job/listjob.xhtml</to-view-id>
+       <redirect/>
+        </navigation-case>
+        </navigation-rule>
+		
+		<navigation-rule>
+        <from-view-id>/job/newJobDetails.xhtml</from-view-id>
+        <navigation-case>
+        <from-action>#{paymentJobMasterManagedBean.insertNewJobDetails}</from-action>
+       <from-outcome>redirectToListJob</from-outcome>
+       <to-view-id>/job/listjob.xhtml</to-view-id>
+       <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+        <navigation-rule>
+        <from-view-id>/job/viewjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.cancelThisJob}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/listjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+          <navigation-rule>
+        <from-view-id>/job/viewjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.updateJob}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/listjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+        <navigation-rule>
+        <from-view-id>/job/viewjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.approveJob}</from-action>
+       		<from-outcome>success1</from-outcome>
+       	<to-view-id>/job/listjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+        <navigation-rule>
+        <from-view-id>/job/viewjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.resubmitJob}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/listjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+        <navigation-rule>
+        <from-view-id>/job/viewjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.runNowJob}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/listjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+          <navigation-rule>
+        <from-view-id>/job/viewjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.backToListJob}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/listjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+        <navigation-rule>
+        <from-view-id>/job/listjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.viewAction(paymentJobMaster0)}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/viewjob.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+          <navigation-rule>
+        <from-view-id>/job/listjob.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{paymentJobMasterManagedBean.redirectToCreateJob}</from-action>
+       		<from-outcome>success</from-outcome>
+       	<to-view-id>/job/newJobDetails.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+          <navigation-rule>
+        <from-view-id>/login.xhtml</from-view-id>
+        <navigation-case>
+         <from-action>#{loginAuthenticationBean.doLogin}</from-action>
+       		<from-outcome>error</from-outcome>
+       	<to-view-id>/login.xhtml</to-view-id>
+       	 <redirect/>
+        </navigation-case>
+        </navigation-rule>
+        
+        
+        
+</faces-config>

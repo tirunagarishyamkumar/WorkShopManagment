@@ -1,0 +1,39 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui"
+    xmlns:c="http://java.sun.com/jsp/jstl/core">
+
+ <table width="100%">
+
+ <tr>
+ <td width="10%">
+  <div class="main-header">
+	<div class="section clearfix">
+		<p:graphicImage name="AgroBank.png" library="images"
+			alt="Agro Bank Logo" 
+			style="margin-top:10px;"/>
+	</div>	
+ </div>
+ </td>
+ <td align="left"><h1>Bulk Payment System</h1>
+ 
+</td>
+
+</tr>
+<tr colspan="2"> 
+<td></td>
+<td align="right" valign="bottom">
+<h:outputText  value="#{loginAuthenticationBean.today}">
+        			<f:convertDateTime pattern="dd-MM-yyyy" dateStyle="full"  />
+  </h:outputText> 
+  <!-- 4:41:13 PM | Tuesday, 12th January 2016 -->
+  
+</td>
+
+</tr>
+
+
+</table>
+</ui:composition>

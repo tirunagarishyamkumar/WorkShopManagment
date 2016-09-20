@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#job#newJobDetails.xhtml"
+  PATH="/job/newJobDetails.xhtml" SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#job#newJobDetails.xhtml:0" NAME="item"
+   PATH="/job/newJobDetails.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="redirectToListJob:#{paymentJobMasterManagedBean.insertNewJobDetails}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.insertNewJobDetails}:redirectToListJob" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#job#listjob.xhtml" PATH="/job/listjob.xhtml"
+  SHAPE="240,33,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#job#listjob.xhtml:0" NAME="item"
+   PATH="/job/listjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.viewAction(paymentJobMaster0)}:#job#viewjob.xhtml"
+    NAME="output" PATH="/job/viewjob.xhtml"
+    TARGET="rules:#job#viewjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.viewAction(paymentJobMaster0)}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#job#listjob.xhtml:1" NAME="item1"
+   PATH="/job/listjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.redirectToCreateJob}:#job#newJobDetails.xhtml"
+    NAME="output" PATH="/job/newJobDetails.xhtml"
+    TARGET="rules:#job#newJobDetails.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.redirectToCreateJob}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#job#viewjob.xhtml" PATH="/job/viewjob.xhtml"
+  SHAPE="32,129,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#job#viewjob.xhtml:0" NAME="item"
+   PATH="/job/viewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.cancelThisJob}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.cancelThisJob}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#job#viewjob.xhtml:1" NAME="item1"
+   PATH="/job/viewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.updateJob}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.updateJob}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#job#viewjob.xhtml:2" NAME="item2"
+   PATH="/job/viewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success1:#{paymentJobMasterManagedBean.approveJob}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.approveJob}:success1" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#job#viewjob.xhtml:3" NAME="item3"
+   PATH="/job/viewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.resubmitJob}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.resubmitJob}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#job#viewjob.xhtml:4" NAME="item4"
+   PATH="/job/viewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.runNowJob}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.runNowJob}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+  <PROCESS-ITEM ID="rules:#job#viewjob.xhtml:5" NAME="item5"
+   PATH="/job/viewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="success:#{paymentJobMasterManagedBean.backToListJob}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.backToListJob}:success" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#job#salarynewjob.xhtml"
+  PATH="/job/salarynewjob.xhtml" SHAPE="32,401,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#job#salarynewjob.xhtml:0" NAME="item"
+   PATH="/job/salarynewjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="redirectToListJob:#{paymentJobMasterManagedBean.insertSalNewJobDetails}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.insertSalNewJobDetails}:redirectToListJob" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#login.xhtml" PATH="/login.xhtml"
+  SHAPE="32,657,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#login.xhtml:0" NAME="item"
+   PATH="/login.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="error:#{loginAuthenticationBean.doLogin}:#login.xhtml"
+    NAME="output" PATH="/login.xhtml" TARGET="rules:#login.xhtml"
+    TITLE="#{loginAuthenticationBean.doLogin}:error" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#job#newmacsjob.xhtml"
+  PATH="/job/newmacsjob.xhtml" SHAPE="32,433,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#job#newmacsjob.xhtml:0" NAME="item"
+   PATH="/job/newmacsjob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="redirectToListJob:#{paymentJobMasterManagedBean.insertMacJobDetails}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.insertMacJobDetails}:redirectToListJob" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#job#newExcelJob.xhtml"
+  PATH="/job/newExcelJob.xhtml" SHAPE="32,657,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#job#newExcelJob.xhtml:0" NAME="item"
+   PATH="/job/newExcelJob.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="redirectToListJob:#{paymentJobMasterManagedBean.insertExcelJobDetails}:#job#listjob.xhtml"
+    NAME="output" PATH="/job/listjob.xhtml"
+    TARGET="rules:#job#listjob.xhtml"
+    TITLE="#{paymentJobMasterManagedBean.insertExcelJobDetails}:redirectToListJob" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+</PROCESS>
