@@ -5,21 +5,21 @@
 	
 	<import resource="spring-jpa.xml"/>
 	
-	<bean id="role" class="com.anny.wsm.model.Role" />
-	<bean id="roleService"	class="com.anny.wsm.serviceimpl.RoleServiceImpl">
+	<bean id="role" class="com.btcc.wsm.model.Role" />
+	<bean id="roleService"	class="com.btcc.wsm.serviceimpl.RoleServiceImpl">
 	</bean>
-	<bean id="accessRights" class="com.anny.wsm.model.AccessRights" />
-	<bean id="accessRightsService" class="com.anny.wsm.serviceimpl.AccessRightsServiceImpl">
+	<bean id="accessRights" class="com.btcc.wsm.model.AccessRights" />
+	<bean id="accessRightsService" class="com.btcc.wsm.serviceimpl.AccessRightsServiceImpl">
 	</bean>
-	<bean id="users" class="com.anny.wsm.model.Users" />
+	<bean id="users" class="com.btcc.wsm.model.Users" />
 	<!-- <bean id="userToAccessRightsService" class="com.hlb.dblogging.security.users.service.UserToAccessRightsServiceImpl"></bean> -->
-	<bean id="usersService" class="com.anny.wsm.serviceimpl.UsersServiceImpl">
+	<bean id="usersService" class="com.btcc.wsm.serviceimpl.UsersServiceImpl">
 		<!-- <property name="userToAccessRightsService">
 			<ref bean="userToAccessRightsService" />
 		</property> -->
 	</bean>
 	
-	<bean  id="userAuthenticationService" class="com.anny.wsm.serviceimpl.UserAuthenticationServiceImpl">
+	<bean  id="userAuthenticationService" class="com.btcc.wsm.serviceimpl.UserAuthenticationServiceImpl">
     	<property name="userService" >
 			<ref bean="usersService"/>
 		</property>

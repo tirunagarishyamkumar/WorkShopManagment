@@ -7,12 +7,12 @@
 	    http://www.springframework.org/schema/context
 	    http://www.springframework.org/schema/context/spring-context.xsd">
     
-	<context:component-scan base-package="com.anny.wsm"/>
-	<bean id="systemAuditTrail" class="com.anny.wsm.model.SystemAuditTrail"/>
-	<bean id="systemAuditTrailRecordService" class="com.anny.wsm.serviceimpl.SystemAuditTrailRecordServiceImpl"/>
-	<bean id="accessLog" class="com.anny.wsm.model.AccessLog"/>
-	<bean id="accessLogService" class="com.anny.wsm.serviceimpl.AccessLogServiceImpl" />
-	<bean id="userService" class="com.anny.wsm.serviceimpl.UsersServiceImpl"/>
+	<context:component-scan base-package="com.btcc.wsm"/>
+	<bean id="systemAuditTrail" class="com.btcc.wsm.model.SystemAuditTrail"/>
+	<bean id="systemAuditTrailRecordService" class="com.btcc.wsm.serviceimpl.SystemAuditTrailRecordServiceImpl"/>
+	<bean id="accessLog" class="com.btcc.wsm.model.AccessLog"/>
+	<bean id="accessLogService" class="com.btcc.wsm.serviceimpl.AccessLogServiceImpl" />
+	<bean id="userService" class="com.btcc.wsm.serviceimpl.UsersServiceImpl"/>
 
 
 </beans>

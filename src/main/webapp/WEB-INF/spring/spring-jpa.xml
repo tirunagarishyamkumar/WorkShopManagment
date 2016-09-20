@@ -52,7 +52,7 @@
 		transaction-manager-ref="transactionManager"
 		entity-manager-factory-ref="entityManagerFactory"></jpa:repositories>
 		
-		<bean id="paymentJobMasterCustomRepository" class="com.anny.wsm.repository.WSMCustomRepository">
+		<bean id="paymentJobMasterCustomRepository" class="com.btcc.wsm.repository.WSMCustomRepository">
     	<property name="dataSource" ref="bpsdatasource"></property>
       </bean>
 
