@@ -1,16 +1,17 @@
 package com.btcc.wsm.repository;
 
 import org.apache.log4j.Logger;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Component;
 
 @Component
-public class WSMCustomRepository extends JdbcDaoSupport {
+public class CustomRepository extends JdbcDaoSupport {
 
 
 
 
-	   final static Logger logger = Logger.getLogger(WSMCustomRepository.class);
+	   final static Logger logger = Logger.getLogger(CustomRepository.class);
 
 	      public void deleteUserRoles(int id){
 			 this.getJdbcTemplate().update("delete from UserToRole where userRoleId="+id);

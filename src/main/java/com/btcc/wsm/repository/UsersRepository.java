@@ -29,6 +29,6 @@ public interface UsersRepository extends CrudRepository<Users, Integer> {
 	@Query("update Users u set enabled=1 where username=?")
 	int deleteUser(String username);
 
-	@Query("select u from Users u where branchNo like ? and enabled=1")
-	List<Users> findApprovers(String barnchNo);
+
+
 }

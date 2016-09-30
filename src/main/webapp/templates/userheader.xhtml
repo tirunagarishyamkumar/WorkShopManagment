@@ -13,33 +13,29 @@
 		<p:growl id="messages" />
 		<!-- Need to add authorization based on role here -->
 		<p:menubar>		
-			<p:menuitem value="Home" url="/admin/adminhomepage.jsf" />			
-			<p:submenu style="margin-left: 10px;" label="Bulk Payment" rendered="#{loginAuthenticationBean.hasAccess('JB01')}">
-			<p:menuitem value="New Salary Job" url="/job/salarynewjob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0103')}"/>	
-			<p:menuitem value="Job Listing" url="/job/listjob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0102')}"/>	
-			<p:submenu  label="New Job" rendered="#{loginAuthenticationBean.hasAccess('JB01')}">
-			<p:menuitem value="New SAGA Job" url="/job/newJobDetails.jsf" rendered="#{loginAuthenticationBean.hasAccess('JB0101')}"/>
-			<p:menuitem value="New MACS Job " url="/job/newmacsjob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0104')}"/>	
-			<p:menuitem value="New Excel Job " url="/job/newExcelJob.jsf"  rendered="#{loginAuthenticationBean.hasAccess('JB0105')}"/>
-			</p:submenu>				
-			</p:submenu>	
-			<p:submenu style="margin-left: 10px;" label="Reports" rendered="#{loginAuthenticationBean.hasAccess('JB02')}">	
-			<p:menuitem value="Generate AG Statement" url="/report/agstatement.jsf" rendered="#{loginAuthenticationBean.hasAccess('JB0201')}"/>		
-			</p:submenu>	
-			<p:submenu style="margin-left: 10px;" label="House Keeping" rendered="#{loginAuthenticationBean.hasAccess('HK')}">	
-			<p:menuitem value="Restore Records" url="/housekeeping/restore.jsf" rendered="#{loginAuthenticationBean.hasAccess('HK01')}"/>		
-			</p:submenu>	
-			<p:submenu style="margin-left: 10px;" label="Settings" rendered="#{loginAuthenticationBean.hasAccess('SY')}">
-			 <p:menuitem value="Parameters" url="/admin/systemparameters.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY01')}"/>
-			 <p:menuitem value="Scheduler" url="/admin/systemscheduler.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY02')}"/>
-			 <p:menuitem value="Branch Codes" url="/admin/branchcodes.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY03')}"/>
-				<p:submenu label="Security" rendered="#{loginAuthenticationBean.hasAccess('SY04')}">
-				   <p:menuitem value="Users" url="/admin/adduser.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0401')}"/>
-				   <p:menuitem value="Groups" url="/admin/groups.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0402')}"/>
-				   <p:menuitem value="Access Rights" url="/admin/accessrights.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0403')}"/>
-				   <p:menuitem value="Audit Logs" url="/admin/systemaudittrail.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0404')}"/>
-				  <p:menuitem value="Access Logs" url="/admin/accesslog.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0405')}"/>
-					<p:menuitem value="Change Password" url="/admin/adminchangepassword.jsf" rendered="#{loginAuthenticationBean.hasAccess('SY0406')}"/>	
+			<p:menuitem value="Home" url="/admin/adminhomepage.jsf" />
+			<p:submenu style="margin-left: 10px;" label="Operations" >
+				<p:menuitem value="JobSheet" url="/admin/systemparameters.jsf"/>
+				<p:menuitem value="Customer" url="/admin/systemparameters.jsf"/>
+				<p:menuitem value="Purchase" url="/admin/systemparameters.jsf"/>
+				<p:menuitem value="Items" url="/admin/systemparameters.jsf"/>
+			</p:submenu>
+
+			<p:submenu style="margin-left: 10px;" label="Reports" >
+				<p:menuitem value="Daily Sales Report" url="/reports/dailysalesreport.jsf"/>
+				<p:menuitem value="Stock Purchase Report" url="/reports/stockpurchasereport.jsf"/>
+			</p:submenu>
+
+
+			<p:submenu style="margin-left: 10px;" label="Settings" >
+			 <p:menuitem value="Parameters" url="/admin/systemparameters.jsf"/>
+				<p:submenu label="Security">
+				   <p:menuitem value="Users" url="/admin/adduser.jsf" />
+				   <p:menuitem value="Groups" url="/admin/groups.jsf" />
+				   <p:menuitem value="Access Rights" url="/admin/accessrights.jsf" />
+				   <p:menuitem value="Audit Logs" url="/admin/systemaudittrail.jsf" />
+				  <p:menuitem value="Access Logs" url="/admin/accesslog.jsf" />
+					<p:menuitem value="Change Password" url="/admin/adminchangepassword.jsf" />
 			    </p:submenu>
 			</p:submenu>
 			

@@ -263,62 +263,14 @@ public class UsersManagedBean implements Serializable {
 		/* } */
 	}
 
-	void checkBeforeUpdate() {
-		loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
-		HashSet<String> accessRights = usersService
-				.getAccessRightsMapForUser(getLoggedInUser().getUsername());
-		if (accessRights.contains("SY0401E")
-				|| accessRights.contains("SY0401D")) {
-			if ((getLoggedInUser().getUsername().equalsIgnoreCase("system"))
-					&& selectedUser.getCreatedBy().equalsIgnoreCase("system")) {
-				RequestContext.getCurrentInstance().execute(
-						"PF('userDialog').show()");
-			} else {
-				if (!(getLoggedInUser().getUsername()
-						.equalsIgnoreCase("system"))
-						&& !(selectedUser.getCreatedBy()
-								.equalsIgnoreCase("system"))) {
-					RequestContext.getCurrentInstance().execute(
-							"PF('userDialog').show()");
-				} else {
-					RequestContext.getCurrentInstance().execute(
-							"PF('userDialog').hide()");
-					FacesMessage msg = new FacesMessage(
-							"You Dont have Rights to Update this Record");
-					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-					return;
-				}
-			}
-		} else {
-			RequestContext.getCurrentInstance().execute(
-					"PF('userDialog').hide()");
-			FacesMessage msg = new FacesMessage(
-					"You Dont have Rights to Update this Record");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return;
-		}
 
-	}
 
 	public void onRowSelect(SelectEvent event) {
 
 		Users userSelected = (Users) event.getObject();
 		setSelectedUser(usersService.findByUsername(userSelected.getUsername()));
-
-		checkBeforeUpdate();
-
 	}
 
-	/*
-	 * public void onRowSelect(SelectEvent event) {
-	 * 
-	 * setSelectedUser((Users) event.getObject()); getSelectedControlUnits();
-	 * checkBeforeUpdate();
-	 * 
-	 * }
-	 */
 
 	public void doInitializeForm() {
 		newUser = new Users();

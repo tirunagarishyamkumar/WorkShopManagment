@@ -4,7 +4,7 @@ import com.btcc.wsm.model.AccessRights;
 import com.btcc.wsm.model.Role;
 import com.btcc.wsm.repository.RoleRepository;
 import com.btcc.wsm.repository.UsersRepository;
-import com.btcc.wsm.repository.WSMCustomRepository;
+import com.btcc.wsm.repository.CustomRepository;
 import com.btcc.wsm.service.RoleService;
 import com.btcc.wsm.util.WSMException;
 import org.apache.log4j.Logger;
@@ -25,7 +25,7 @@ public class RoleServiceImpl implements RoleService {
     public static String role="ROLE_USER";
 
     @Autowired
-    private WSMCustomRepository customrep;
+    private CustomRepository customrep;
 
     @Resource
     private RoleRepository roleRepository;

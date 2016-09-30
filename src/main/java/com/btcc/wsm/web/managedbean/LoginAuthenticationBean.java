@@ -48,7 +48,7 @@ public class LoginAuthenticationBean implements Serializable {
 	private Users actorUsers;
 	private String oldPassword;
 	private String newPassword;
-	private String nextSchedulerTime;
+
 	
 	private Date today;
 	
@@ -70,7 +70,7 @@ public class LoginAuthenticationBean implements Serializable {
 	}
 	
 	public LoginAuthenticationBean() {
-		logger.info("@@@@@@@@@@@ LoginAuthenticationBean object created... @@@@@@@@@");
+
 	}
 	
 	public String getUsername() {
@@ -135,12 +135,7 @@ public class LoginAuthenticationBean implements Serializable {
 	public void setToday(Date today) {
 		this.today = today;
 	}
-	public String getNextSchedulerTime() {
-		return nextSchedulerTime;
-	}
-	public void setNextSchedulerTime(String nextSchedulerTime) {
-		this.nextSchedulerTime = nextSchedulerTime;
-	}
+
 	
 	
 	
@@ -296,4 +291,4 @@ public class LoginAuthenticationBean implements Serializable {
 	
 	
 	
-}}
+}

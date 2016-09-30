@@ -267,50 +267,12 @@ public class RoleManagedBean implements Serializable {
 
 	}
 
-	void checkBeforeUpdate() {
-		loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
-		HashSet<String> accessRights = usersService
-				.getAccessRightsMapForUser(getLoggedInUser().getUsername());
-		if (accessRights.contains("SY0402E")
-				|| accessRights.contains("SY0402D")) {
-			if ((getLoggedInUser().getUsername().equalsIgnoreCase("system"))
-					&& selectedRole.getCreatedBy().equalsIgnoreCase("system")) {
-				RequestContext.getCurrentInstance().execute(
-						"PF('roleDialog').show()");
-			} else {
-				if (!(getLoggedInUser().getUsername()
-						.equalsIgnoreCase("system"))
-						&& !(selectedRole.getCreatedBy()
-								.equalsIgnoreCase("system"))) {
-					RequestContext.getCurrentInstance().execute(
-							"PF('roleDialog').show()");
-				} else {
-					RequestContext.getCurrentInstance().execute(
-							"PF('roleDialog').hide()");
-					FacesMessage msg = new FacesMessage(
-							"You Dont have Rights to Update this Record");
-					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-					return;
-				}
-			}
-		} else {
-			RequestContext.getCurrentInstance().execute(
-					"PF('roleDialog').hide()");
-			FacesMessage msg = new FacesMessage(
-					"You Dont have Rights to Update this Record");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return;
-		}
-
-	}
 
 	public void onRowSelect(SelectEvent event) {
 
 		Role roleSelected = (Role) event.getObject();
 		setSelectedRole(roleService.findByRole(roleSelected.getRole()));
-		checkBeforeUpdate();
+
 	}
 
 	public void doDeleteRole() {

@@ -2,7 +2,7 @@ package com.btcc.wsm.serviceimpl;
 
 import com.btcc.wsm.model.AccessRights;
 import com.btcc.wsm.repository.AccessRightsRepository;
-import com.btcc.wsm.repository.WSMCustomRepository;
+import com.btcc.wsm.repository.CustomRepository;
 import com.btcc.wsm.service.AccessRightsService;
 import com.btcc.wsm.util.WSMException;
 import org.apache.log4j.Logger;
@@ -24,7 +24,7 @@ public class AccessRightsServiceImpl implements AccessRightsService {
     @Resource
     private AccessRightsRepository accessRightsRepository;
     @Resource
-    private WSMCustomRepository customRepository;
+    private CustomRepository customRepository;
 
 
 

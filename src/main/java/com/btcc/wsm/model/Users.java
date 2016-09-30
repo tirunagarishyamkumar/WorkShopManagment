@@ -21,7 +21,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="users")
+@Table(name="user")
 public class Users implements Serializable{
 	/**
 	 * 
@@ -39,7 +39,7 @@ public class Users implements Serializable{
 	@Column(name="password", nullable=true)
 	private String password;
 	
-	@Column(name="name", nullable=false)
+	@Column(name="fullname", nullable=false)
 	private String name;
 	
 	@Column(name="email", nullable=false)	
@@ -67,9 +67,9 @@ public class Users implements Serializable{
 	private java.util.Date lastModifiedTime;
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(name = "UserToRole" , joinColumns = { @JoinColumn(name = "userId", referencedColumnName = "id" )},
+	@JoinTable(name = "user_role" , joinColumns = { @JoinColumn(name = "user_id", referencedColumnName = "id" )},
 	inverseJoinColumns=
-			{@JoinColumn (name = "userRoleId", referencedColumnName = "id" ) } )
+			{@JoinColumn (name = "role_id", referencedColumnName = "id" ) } )
 	private Set<Role> userRoles = new HashSet<Role>();
 	
 	

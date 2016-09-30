@@ -34,9 +34,7 @@
                  rows="20" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100" >
           <p:ajax event="rowSelect" listener="#{usersManagedBean.onRowSelect}"  update=":userDetailForm:display, :growl" />  
 	          <p:column width="10%" id="nameHeader" sortBy="#{user.username}"><f:facet name="header"> Username </f:facet> <h:outputText value="#{user.username}" /></p:column>
-	          <p:column width="10%" id="branchHeader"  sortBy="#{user.branchNo}" ><f:facet name="header"> Branch No </f:facet><h:outputText value="#{user.branchNo}" /></p:column>
-	          <p:column width="10%" id="controlHeader"  sortBy="#{user.controlUnit}" ><f:facet name="header"> Control Unit </f:facet><h:outputText value="#{user.controlUnit}" /></p:column>	        
-	          <p:column width="10%" id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{user.createdBy}" /></p:column>
+	        <p:column width="10%" id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{user.createdBy}" /></p:column>
 	          <p:column width="15%" id="createdTimeHeader"  sortBy="#{user.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{user.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
 	         
 	          <p:column width="15%" id="lastModifiedByHeader"  sortBy="#{user.lastModifiedBy}" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{user.lastModifiedBy}" /></p:column>
@@ -53,18 +51,7 @@
                 	<h:outputText value="Name :"></h:outputText>	
                     	<p:inputText value="#{usersManagedBean.selectedUser.name}" required="true" requiredMessage="Please Enter Name!" label="Name ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
             		
-            		<h:outputText value="Branch Code :"></h:outputText>	
-                    	<p:selectOneMenu value="#{usersManagedBean.selectedUser.branchNo}" effect="fade" required="true" requiredMessage="Please Select Branch Code!" >
-						<p:ajax listener="#{usersManagedBean.getSelectedControlUnits}" update="controlUnit" />
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{usersManagedBean.branchCodes}" var="branchCodeObject" itemLabel="#{branchCodeObject.branchCode}-#{branchCodeObject.description}" itemValue="#{branchCodeObject.branchCode}" />
-						</p:selectOneMenu>
-            		<h:outputText value="Control Unit :"></h:outputText>
-                        <p:selectOneMenu value="#{usersManagedBean.selectedUser.controlUnit}" id="controlUnit" effect="fade" required="true" requiredMessage="Please Select Control Unit!" >
- 						<f:selectItem itemLabel="Select One" itemValue="#{usersManagedBean.selectedUser.controlUnit}" />
- 						<f:selectItems value="#{usersManagedBean.controlUnitsList}" var="controlUnitObject" itemLabel="#{controlUnitObject.controlUnit}" itemValue="#{controlUnitObject.controlUnit}"  />
- 						</p:selectOneMenu>
-                    
+
                      <h:outputText value="Email :"></h:outputText>	
                     	<p:inputText value="#{usersManagedBean.selectedUser.email}" required="true" requiredMessage="Please Enter Email!" >  <f:validateLength minimum="4" maximum="30"/>
                     	</p:inputText>
@@ -93,19 +80,7 @@
             		<h:outputText value="Username :"></h:outputText>
                         <p:focus><p:inputText value="#{usersManagedBean.newUser.username}" required="true" requiredMessage="Please Enter Username!" label="Username "> <f:validateLength minimum="4" maximum="30"/></p:inputText>  (Mapped to Active Directory)</p:focus>
             		
-            		<h:outputText value="Branch Code :"></h:outputText>	
-                    	<p:selectOneMenu value="#{usersManagedBean.newUser.branchNo}" effect="fade" required="true" requiredMessage="Please Select Branch Code!" >
-                    	<p:ajax listener="#{usersManagedBean.getControlUnits}" update="controlUnit" />
-						<f:selectItem itemLabel="Select One" itemValue="" noSelectionOption="true" />
-						<f:selectItems value="#{usersManagedBean.branchCodes}" var="branchCodeObject" itemLabel="#{branchCodeObject.branchCode}-#{branchCodeObject.description}" itemValue="#{branchCodeObject.branchCode}"  />
-						</p:selectOneMenu>
-            		
-            		  <h:outputText value="Control Unit :"></h:outputText>
-            		    <p:selectOneMenu value="#{usersManagedBean.newUser.controlUnit}" id="controlUnit" effect="fade" required="true" requiredMessage="Please Select Control Unit!" >
-						<f:selectItem itemLabel="Select One" itemValue="" />
-						<f:selectItems value="#{usersManagedBean.controlUnitsList}" var="controlUnitObject" itemLabel="#{controlUnitObject.controlUnit}" itemValue="#{controlUnitObject.controlUnit}"  />						
-						</p:selectOneMenu>
-						            		                  	
+
                   	<h:outputText value="Email :"></h:outputText>	
                     	<p:inputText value="#{usersManagedBean.newUser.email}" required="true" requiredMessage="Please Enter Email!"  label="Email ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
                     	<h:outputText value="Assign Groups :"></h:outputText>

@@ -42,26 +42,26 @@ public class Role implements Serializable{
 	@Column(name="description", nullable=true)
 	private String description;
 	
-	@Column(name="createdBy",nullable=true)
+	@Column(name="created_by",nullable=true)
 	private String createdBy;
 	
 	
-	@Column(name="creationTime",nullable=true)
+	@Column(name="creation_time",nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date creationTime;
 	
-	@Column(name="lastModifiedBy",nullable=true)
+	@Column(name="updated_by",nullable=true)
 	private String lastModifiedBy;
 	
-	@Column(name="lastModifiedTime",nullable=true)
+	@Column(name="update_time",nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date lastModifiedTime;
 	
 	
 	@ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.MERGE)
-	@JoinTable(name = "RoleToAccessRights" , joinColumns = { @JoinColumn(name = "roleId", referencedColumnName = "id" )},
+	@JoinTable(name = "role_access_right" , joinColumns = { @JoinColumn(name = "role_id", referencedColumnName = "id" )},
 	inverseJoinColumns=
-			{@JoinColumn (name = "accessRightsId", referencedColumnName = "id" ) } )
+			{@JoinColumn (name = "access_right_id", referencedColumnName = "id" ) } )
 	private Set<AccessRights> accessRights = new HashSet<AccessRights>();
 	 
 	

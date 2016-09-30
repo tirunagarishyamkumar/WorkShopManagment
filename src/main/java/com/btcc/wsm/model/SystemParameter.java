@@ -15,7 +15,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="systemParameters")
+@Table(name="system_parameter")
 public class SystemParameter  implements Serializable{
 	
 	private static final long serialVersionUID = 1L;
@@ -25,27 +25,27 @@ public class SystemParameter  implements Serializable{
 	@Column(name="id", nullable=false, unique=true)
 	private int id;
 	
-	@Column(name="propertyName", nullable=false , length=30) 
+	@Column(name="property_name", nullable=false , length=30)
 	private String propertyName;
 	
 	@Lob
-	@Column(name="propertyValue", nullable=false) 
+	@Column(name="property_value", nullable=false)
 	private String propertyValue;    	
 	
 	@Column(name="description" , nullable=false , length=255)
 	private String description; 
 	
-	@Column(name="createdBy",nullable=true)
+	@Column(name="created_by",nullable=true)
 	private String createdBy;
 	
-	@Column(name="creationTime",nullable=true)
+	@Column(name="creation_time",nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date creationTime;
 	
-	@Column(name="lastModifiedBy",nullable=true)
+	@Column(name="updated_by",nullable=true)
 	private String lastModifiedBy;
 	
-	@Column(name="lastModifiedTime",nullable=true)
+	@Column(name="updated_time",nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private java.util.Date lastModifiedTime;
 	

@@ -16,7 +16,7 @@ import javax.persistence.TemporalType;
 import org.hibernate.annotations.Type;
 
 @Entity
-@Table(name="accessRights")
+@Table(name="access_right")
 public class AccessRights implements Serializable{
 
 	/**
@@ -28,23 +28,23 @@ public class AccessRights implements Serializable{
 	@Column(name="id", nullable=false, unique=true)
 	private int id;
 	
-	@Column(name="accessRights", nullable=false , length=45) 
+	@Column(name="name", nullable=false , length=45)
 	private String accessRights;
 	
 	@Column(name="description" , nullable=false , length=255)
 	private String description; 
 	
-	@Column(name="createdBy",nullable=true)
+	@Column(name="created_by",nullable=true)
 	private String createdBy;
 	
-	@Column(name="creationTime",nullable=true)
+	@Column(name="creation_time",nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date creationTime;
 	
-	@Column(name="lastModifiedBy",nullable=true)
+	@Column(name="updated_by",nullable=true)
 	private String lastModifiedBy;
 	
-	@Column(name="lastModifiedTime",nullable=true)
+	@Column(name="update_time",nullable=true)
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModifiedTime;
 	

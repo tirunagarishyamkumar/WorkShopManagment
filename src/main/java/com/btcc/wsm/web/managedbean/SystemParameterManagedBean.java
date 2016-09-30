@@ -8,24 +8,21 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 
+import com.btcc.wsm.model.SystemParameter;
+import com.btcc.wsm.model.Users;
+import com.btcc.wsm.service.SystemAuditTrailRecordService;
+import com.btcc.wsm.service.SystemParameterService;
+import com.btcc.wsm.service.UsersService;
+import com.btcc.wsm.util.FacesUtil;
+import com.btcc.wsm.util.SystemAuditTrailActivity;
+import com.btcc.wsm.util.SystemAuditTrailLevel;
+import com.btcc.wsm.util.WSMException;
+import com.btcc.wsm.web.datamodel.SystemParametersDataModel;
 import org.apache.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-
-import com.agrobank.bft.app.context.FacesUtil;
-import com.agrobank.bft.constants.SystemParametersConstants;
-import com.agrobank.bft.datamodel.SystemParametersDataModel;
-import com.agrobank.bft.model.SystemParameters;
-import com.agrobank.bft.model.Users;
-import com.agrobank.bft.quartzscheduler.HouseKeepingQuartzScheduler;
-import com.agrobank.bft.systemparameters.service.SystemParametersService;
-import com.agrobank.bft.user.audit.logging.SystemAuditTrailActivity;
-import com.agrobank.bft.user.audit.logging.SystemAuditTrailLevel;
-import com.agrobank.bft.user.audit.logging.SystemAuditTrailRecordService;
-import com.agrobank.bft.users.service.UsersService;
-import com.agrobank.bft.util.BFTException;
 
 @Component
 @ViewScoped
@@ -36,34 +33,34 @@ public class SystemParameterManagedBean implements Serializable {
 	@Autowired
 	private UsersService usersService;
 	@Autowired
-	SystemParametersService systemParametersService;
+	SystemParameterService systemParametersService;
 	final static Logger logger = Logger
 			.getLogger(SystemParameterManagedBean.class);
 
-	private List<SystemParameters> systemParamatersList;
+	private List<SystemParameter> systemParametersList;
 	private SystemParametersDataModel systemParametersDataModel;
-	private SystemParameters newSystemParameters = new SystemParameters();
-	private SystemParameters selectedSystemParameters = new SystemParameters();
+	private SystemParameter newSystemParameters = new SystemParameter();
+	private SystemParameter selectedSystemParameters = new SystemParameter();
 	private boolean insertDelete = false;
 	private Users loggedInUser;
 
 	@Autowired
 	private SystemAuditTrailRecordService systemAuditTrailRecordService;
 
-	public SystemParametersService getSystemParametersService() {
+	public SystemParameterService getSystemParametersService() {
 		return systemParametersService;
 	}
 
 	public void setSystemParametersService(
-			SystemParametersService systemParametersService) {
+			SystemParameterService systemParametersService) {
 		this.systemParametersService = systemParametersService;
 	}
 
-	public SystemParameters getNewSystemParameters() {
+	public SystemParameter getNewSystemParameters() {
 		return newSystemParameters;
 	}
 
-	public void setNewSystemParameters(SystemParameters newSystemParameters) {
+	public void setNewSystemParameters(SystemParameter newSystemParameters) {
 		this.newSystemParameters = newSystemParameters;
 	}
 
@@ -77,7 +74,7 @@ public class SystemParameterManagedBean implements Serializable {
 
 	public SystemParametersDataModel getSystemParametersDataModel() {
 
-		return new SystemParametersDataModel(getSystemParamatersList());
+		return new SystemParametersDataModel(getSystemParametersList());
 	}
 
 	public void setSystemParametersDataModel(
@@ -93,26 +90,26 @@ public class SystemParameterManagedBean implements Serializable {
 		this.insertDelete = insertDelete;
 	}
 
-	public List<SystemParameters> getSystemParamatersList() {
+	public List<SystemParameter> getSystemParametersList() {
 
-		if (systemParamatersList == null) {
-			systemParamatersList = systemParametersService.findAll();
+		if (systemParametersList == null) {
+			systemParametersList = systemParametersService.findAll();
 		}
 
-		return systemParamatersList;
+		return systemParametersList;
 	}
 
-	public void setSystemParamatersList(
-			List<SystemParameters> systemParamatersList) {
-		this.systemParamatersList = systemParamatersList;
+	public void setSystemParametersList(
+			List<SystemParameter> systemParamatersList) {
+		this.systemParametersList = systemParamatersList;
 	}
 
-	public SystemParameters getSelectedSystemParameters() {
+	public SystemParameter getSelectedSystemParameters() {
 		return selectedSystemParameters;
 	}
 
 	public void setSelectedSystemParameters(
-			SystemParameters selectedSystemParameters) {
+			SystemParameter selectedSystemParameters) {
 		this.selectedSystemParameters = selectedSystemParameters;
 	}
 
@@ -126,15 +123,7 @@ public class SystemParameterManagedBean implements Serializable {
 	}
 
 	public void doCreateSystemParameter() {
-		if (getSystemParametersService().checkPropertyName(
-				newSystemParameters.getPropertyName())) {
-			System.out.println("PropetyName already Exist");
-			FacesMessage msg = new FacesMessage("FAILURE : SystemParameters "
-					+ newSystemParameters.getPropertyName() + " Already Exists");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return;
-		} else {
+
 
 			try {
 				logger.info("SystemParameterManagedBean.doCreateSystemParameter is creating property name: "
@@ -158,23 +147,19 @@ public class SystemParameterManagedBean implements Serializable {
 								+ newSystemParameters.getPropertyName());
 				// schedule house keeping archive
 				String propertyName = newSystemParameters.getPropertyName();
-				if (propertyName
-						.equals(SystemParametersConstants.HOUSE_KEEPING_PERIOD)) {
-					HouseKeepingQuartzScheduler
-							.scheduleQuartzJob(newSystemParameters);
-				}
+
 				FacesContext
 						.getCurrentInstance()
 						.addMessage(
 								null,
 								new FacesMessage(
 										"SUCCESS : New System Parameter record created"));
-				newSystemParameters = new SystemParameters();
-				if (systemParamatersList == null || insertDelete == true) {
-					systemParamatersList = systemParametersService.findAll();
+				newSystemParameters = new SystemParameter();
+				if (systemParametersList == null || insertDelete == true) {
+					systemParametersList = systemParametersService.findAll();
 				}
 
-			} catch (BFTException e) {
+			} catch (WSMException e) {
 
 				logger.error(
 						"SystemParameterManagedBean.doCreateSystemParameter: Error while creating property name: "
@@ -189,21 +174,11 @@ public class SystemParameterManagedBean implements Serializable {
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 			}
-		}
+
 	}
 
 	public void doUpdateSystemParameter() {
-		if (getSystemParametersService().checkPropertyNameWithId(
-				selectedSystemParameters.getPropertyName(),
-				selectedSystemParameters.getId())) {
-			FacesMessage msg = new FacesMessage("FAILURE : SystemParameters "
-					+ selectedSystemParameters.getPropertyName()
-					+ "  Already Exists");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return;
 
-		} else {
 			try {
 				logger.info("SystemParameterManagedBean.doUpdateSystemParameter is updating  property name: "
 						+ selectedSystemParameters.getPropertyName()
@@ -215,8 +190,8 @@ public class SystemParameterManagedBean implements Serializable {
 						.getUsername());
 				systemParametersService.update(selectedSystemParameters);
 				setInsertDelete(true);
-				if (systemParamatersList == null || insertDelete == true) {
-					systemParamatersList = systemParametersService.findAll();
+				if (systemParametersList == null || insertDelete == true) {
+					systemParametersList = systemParametersService.findAll();
 				}
 				systemAuditTrailRecordService.log(
 						SystemAuditTrailActivity.UPDATED,
@@ -227,17 +202,13 @@ public class SystemParameterManagedBean implements Serializable {
 								+ selectedSystemParameters.getPropertyName());
 				String propertyName = selectedSystemParameters
 						.getPropertyName();
-				if (propertyName
-						.equals(SystemParametersConstants.HOUSE_KEEPING_PERIOD)) {
-					HouseKeepingQuartzScheduler
-							.reScheduleQuartzJob(selectedSystemParameters);
-				}
+
 				FacesContext.getCurrentInstance().addMessage(
 						null,
 						new FacesMessage("SUCCESS : SystemParameters "
 								+ selectedSystemParameters.getPropertyName()
 								+ " has been updated "));
-			} catch (BFTException e) {
+			} catch (WSMException e) {
 				logger.error(
 						"SystemParameterManagedBean.doUpdateSystemParameter:Error while Updating property name: "
 								+ selectedSystemParameters.getPropertyName()
@@ -251,7 +222,7 @@ public class SystemParameterManagedBean implements Serializable {
 				FacesContext.getCurrentInstance().addMessage(null, msg);
 
 			}
-		}
+
 	}
 
 	public void doDeleteSystemParameter() {
@@ -272,19 +243,15 @@ public class SystemParameterManagedBean implements Serializable {
 							+ " has deleted System Paramenter "
 							+ selectedSystemParameters.getPropertyName());
 			String propertyName = selectedSystemParameters.getPropertyName();
-			if (propertyName
-					.equals(SystemParametersConstants.HOUSE_KEEPING_PERIOD)) {
-				HouseKeepingQuartzScheduler
-						.unScheduleQuartzJob(selectedSystemParameters);
-			}
+
 			FacesContext.getCurrentInstance().addMessage(
 					null,
 					new FacesMessage(
 							"SUCCESS : System Parameter record deleted"));
-			if (systemParamatersList == null || insertDelete == true) {
-				systemParamatersList = systemParametersService.findAll();
+			if (systemParametersList == null || insertDelete == true) {
+				systemParametersList = systemParametersService.findAll();
 			}
-		} catch (BFTException e) {
+		} catch (WSMException e) {
 			logger.error(
 					"SystemParameterManagedBean.doDeleteSystemParameter:Error while Deleting property name: "
 							+ selectedSystemParameters.getPropertyName()
@@ -298,51 +265,13 @@ public class SystemParameterManagedBean implements Serializable {
 		}
 	}
 
-	void checkBeforeUpdate() {
-		loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
-		HashSet<String> accessRights = usersService
-				.getAccessRightsMapForUser(getLoggedInUser().getUsername());
-		if (accessRights.contains("SY01E") || accessRights.contains("SY01D")) {
-			if ((getLoggedInUser().getUsername().equalsIgnoreCase("system"))
-					&& selectedSystemParameters.getCreatedBy()
-							.equalsIgnoreCase("system")) {
-				RequestContext.getCurrentInstance().execute(
-						"PF('systemParameterDialog').show()");
-			} else {
-				if (!(getLoggedInUser().getUsername()
-						.equalsIgnoreCase("system"))
-						&& !(selectedSystemParameters.getCreatedBy()
-								.equalsIgnoreCase("system"))) {
-					RequestContext.getCurrentInstance().execute(
-							"PF('systemParameterDialog').show()");
-				} else {
-					RequestContext.getCurrentInstance().execute(
-							"PF('systemParameterDialog').hide()");
-					FacesMessage msg = new FacesMessage(
-							"You Dont have Rights to Update this Record");
-					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-					return;
-				}
-			}
-		} else {
-			RequestContext.getCurrentInstance().execute(
-					"PF('systemParameterDialog').hide()");
-			FacesMessage msg = new FacesMessage(
-					"You Dont have Rights to Update this Record");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return;
-		}
-
-	}
 
 	public void onRowSelect(SelectEvent event) {
-		setSelectedSystemParameters((SystemParameters) event.getObject());
-		checkBeforeUpdate();
+		setSelectedSystemParameters((SystemParameter) event.getObject());
+
 	}
 
-	public void showDailogue() {
+	public void showDialogue() {
 
 		RequestContext.getCurrentInstance().execute(
 				"PF('newSystemParametersDialog').show()");

@@ -27,7 +27,7 @@ public class AccessLog implements Serializable{
 	private static final long serialVersionUID = 1L;
 	@Id
 	@GeneratedValue( strategy=GenerationType.AUTO )
-	@Column(name="access_log_id", nullable=false, unique=true)
+	@Column(name="id", nullable=false, unique=true)
 	private int accessLogId;
 	
 	@Temporal(TemporalType.TIMESTAMP)
