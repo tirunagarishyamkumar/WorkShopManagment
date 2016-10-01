@@ -1,7 +1,19 @@
 package com.btcc.wsm.web.managedbean;
 
+import org.springframework.stereotype.Component;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+import java.io.Serializable;
+
 /**
- * Created by sivak_000 on 1/10/2016.
+ * Created by siva on 1/10/2016.
  */
-public class ItemManagedBean {
+
+@ManagedBean
+@Component
+@ViewScoped
+public class ItemManagedBean implements Serializable{
+
+
 }

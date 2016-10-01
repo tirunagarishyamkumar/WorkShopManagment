@@ -31,7 +31,7 @@
     
          <h:form id="commandButtonForm">
 	      <!--  <p:commandButton value="Add New" update=":newAccessRightsForm" rendered="#{loginAuthenticationBean.hasAccess('SY0403C')}"  oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Add New Access Right"/> -->
-	      <p:commandButton value="Add New" ajax="false" actionListener="#{accessRightsManagedBean.showDailogue}" rendered="#{loginAuthenticationBean.hasAccess('SY0403C')}"  update=":newAccessRightsForm" />
+	      <p:commandButton value="Add New" ajax="false" actionListener="#{accessRightsManagedBean.showDailogue}"  update=":newAccessRightsForm" />
 	   </h:form>  
 	   <br/><br/>
 		<h:form id="accessRightsTableForm">
@@ -62,8 +62,8 @@
             <h:outputText value="Description"></h:outputText>
             <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></h:inputText>
                     <f:facet name="footer">
-                            <p:commandButton value="Update" rendered="#{loginAuthenticationBean.hasAccess('SY0403E')}"  update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doUpdateAccessRights}"/>
-                            <p:commandButton value="Delete" rendered="#{loginAuthenticationBean.hasAccess('SY0403D')}"  onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>                        
+                            <p:commandButton value="Update"  update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doUpdateAccessRights}"/>
+                            <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>
                             
                     </f:facet>
           </p:panelGrid>

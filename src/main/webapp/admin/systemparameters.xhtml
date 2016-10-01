@@ -30,7 +30,7 @@
 	
          <h:form id="commandButtonForm">
 	      <!--  <p:commandButton value="Add New" update=":newSystemParametersForm" rendered="#{loginAuthenticationBean.hasAccess('SY01C')}" oncomplete="PF('newSystemParametersDialog').show()" icon="ui-icon-star" title="Add New System Parameters"/> -->
-	       <p:commandButton value="Add New" ajax="false" actionListener="#{systemParameterManagedBean.showDailogue}" rendered="#{loginAuthenticationBean.hasAccess('SY01C')}" update=":newSystemParametersForm" />
+	       <p:commandButton value="Add New" ajax="false" actionListener="#{systemParameterManagedBean.showDailogue}"  update=":newSystemParametersForm" />
 	   </h:form>   
         <br/>
 		<h:form id="systemParametersTableForm">	
@@ -65,8 +65,8 @@
                       <h:inputTextarea  rows="6" cols="33" value="#{systemParameterManagedBean.selectedSystemParameters.description}" required="true" requiredMessage="please Enter Description" label="Description "></h:inputTextarea>
                              
                      <f:facet name="footer">
-                            <p:commandButton value="Update" rendered="#{loginAuthenticationBean.hasAccess('SY01E')}" update=":systemParametersTableForm:systemParameterTable"  oncomplete="if(!args.validationFailed)  PF('systemParameterDialog').hide()" validateClient="true" actionListener="#{systemParameterManagedBean.doUpdateSystemParameter}"/>
-                            <p:commandButton value="Delete" rendered="#{loginAuthenticationBean.hasAccess('SY01D')}" onclick="PF('cd').show()" oncomplete="PF('systemParameterDialog').hide()"/>                        
+                            <p:commandButton value="Update" update=":systemParametersTableForm:systemParameterTable"  oncomplete="if(!args.validationFailed)  PF('systemParameterDialog').hide()" validateClient="true" actionListener="#{systemParameterManagedBean.doUpdateSystemParameter}"/>
+                            <p:commandButton value="Delete"  onclick="PF('cd').show()" oncomplete="PF('systemParameterDialog').hide()"/>
                     </f:facet>
               </p:panelGrid>
           </h:form>

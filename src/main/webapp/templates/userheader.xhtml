@@ -15,10 +15,11 @@
 		<p:menubar>		
 			<p:menuitem value="Home" url="/admin/adminhomepage.jsf" />
 			<p:submenu style="margin-left: 10px;" label="Operations" >
-				<p:menuitem value="JobSheet" url="/admin/systemparameters.jsf"/>
-				<p:menuitem value="Customer" url="/admin/systemparameters.jsf"/>
-				<p:menuitem value="Purchase" url="/admin/systemparameters.jsf"/>
-				<p:menuitem value="Items" url="/admin/systemparameters.jsf"/>
+				<p:menuitem value="JobSheet" url="/operations/jobsheet.jsf"/>
+				<p:menuitem value="Manage Customer" url="/operations/customer.jsf"/>
+				<p:menuitem value="Manage Supplier" url="/operations/supplier.jsf"/>
+				<p:menuitem value="Manage Item" url="/operations/item.jsf"/>
+				<p:menuitem value="Manage Purchases" url="/operations/purchase.jsf"/>
 			</p:submenu>
 
 			<p:submenu style="margin-left: 10px;" label="Reports" >
@@ -28,13 +29,13 @@
 
 
 			<p:submenu style="margin-left: 10px;" label="Settings" >
-			 <p:menuitem value="Parameters" url="/admin/systemparameters.jsf"/>
+			 <p:menuitem value="Manage Parameters" url="/admin/systemparameters.jsf"/>
 				<p:submenu label="Security">
-				   <p:menuitem value="Users" url="/admin/adduser.jsf" />
-				   <p:menuitem value="Groups" url="/admin/groups.jsf" />
-				   <p:menuitem value="Access Rights" url="/admin/accessrights.jsf" />
-				   <p:menuitem value="Audit Logs" url="/admin/systemaudittrail.jsf" />
-				  <p:menuitem value="Access Logs" url="/admin/accesslog.jsf" />
+				   <p:menuitem value="Manage Users" url="/admin/adduser.jsf" />
+				   <p:menuitem value="Manage Groups" url="/admin/groups.jsf" />
+				   <p:menuitem value="Manage Access Rights" url="/admin/accessrights.jsf" />
+				   <p:menuitem value="Manage Audit Logs" url="/admin/systemaudittrail.jsf" />
+				  <p:menuitem value="Manage Access Logs" url="/admin/accesslog.jsf" />
 					<p:menuitem value="Change Password" url="/admin/adminchangepassword.jsf" />
 			    </p:submenu>
 			</p:submenu>

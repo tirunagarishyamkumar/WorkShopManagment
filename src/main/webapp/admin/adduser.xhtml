@@ -24,7 +24,7 @@
 
  	 <h:form>
  	 	<!-- <p:commandButton value="Add New"  update=":newUserForm"  rendered="#{loginAuthenticationBean.hasAccess('SY0401C')}" oncomplete="PF('newUserDialog').show()" actionListener="#{usersManagedBean.populatePickList()}" icon="ui-icon-star" title="Add New User"/> -->
- 	 	<p:commandButton value="Add New" ajax="false" actionListener="#{usersManagedBean.showDailogue}" rendered="#{loginAuthenticationBean.hasAccess('SY0401C')}" update=":newUserForm" />
+ 	 	<p:commandButton value="Add New" ajax="false" actionListener="#{usersManagedBean.showDailogue}"  update=":newUserForm" />
  	 </h:form>
  	 <br/><br/>
 	<h:form id="userTableForm">
@@ -64,8 +64,8 @@
 	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
           				</p:pickList>
                     <f:facet name="footer">
-                            <p:commandButton value="Update" rendered="#{loginAuthenticationBean.hasAccess('SY0401E')}"  update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('userDialog').hide()" actionListener="#{usersManagedBean.doUpdateUser}" validateClient="true"/>
-                            <p:commandButton value="Delete"  rendered="#{loginAuthenticationBean.hasAccess('SY0401D')}"  onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
+                            <p:commandButton value="Update"   update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('userDialog').hide()" actionListener="#{usersManagedBean.doUpdateUser}" validateClient="true"/>
+                            <p:commandButton value="Delete"    onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
                     </f:facet>
                 </p:panelGrid>
              </h:form>

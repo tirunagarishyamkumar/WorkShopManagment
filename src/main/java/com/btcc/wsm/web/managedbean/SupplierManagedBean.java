@@ -13,5 +13,5 @@ import java.io.Serializable;
 @ManagedBean
 @Component
 @ViewScoped
-public class JobSheetManagedBean implements Serializable {
+public class SupplierManagedBean implements Serializable{
 }
