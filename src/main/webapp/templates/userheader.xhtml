@@ -16,20 +16,28 @@
 			<p:menuitem value="Home" url="/admin/adminhomepage.jsf" />
 			<p:submenu style="margin-left: 10px;" label="Operations" >
 				<p:menuitem value="JobSheet" url="/operations/jobsheet.jsf"/>
-				<p:menuitem value="Manage Customer" url="/operations/customer.jsf"/>
-				<p:menuitem value="Manage Supplier" url="/operations/supplier.jsf"/>
+				<p:menuitem value="Tax Invoice" url="/operations/customer.jsf"/>
+				<p:menuitem value="Receipt" url="/operations/supplier.jsf"/>
+			</p:submenu>
+            <p:submenu style="margin-left: 10px;" label="Finance" >
+                <p:menuitem value="Payment Voucher" url="/operations/jobsheet.jsf"/>
+                <p:menuitem value="Credit/Debit memo" url="/operations/customer.jsf"/>
+                <p:menuitem value="Cash Transfer" url="/operations/supplier.jsf"/>
+                <p:menuitem value="Bank Reconciliation" url="/operations/item.jsf"/>
+            </p:submenu>
+			<p:submenu style="margin-left: 10px;" label="Inventory" >
 				<p:menuitem value="Manage Item" url="/operations/item.jsf"/>
+				<p:menuitem value="Manage Supplier" url="/operations/supplier.jsf"/>
 				<p:menuitem value="Manage Purchases" url="/operations/purchase.jsf"/>
 			</p:submenu>
-
 			<p:submenu style="margin-left: 10px;" label="Reports" >
 				<p:menuitem value="Daily Sales Report" url="/reports/dailysalesreport.jsf"/>
+				<p:menuitem value="Item Sales Report" url="/reports/dailysalesreport.jsf"/>
 				<p:menuitem value="Stock Purchase Report" url="/reports/stockpurchasereport.jsf"/>
 			</p:submenu>
-
-
 			<p:submenu style="margin-left: 10px;" label="Settings" >
 			 <p:menuitem value="Manage Parameters" url="/admin/systemparameters.jsf"/>
+				<p:menuitem value="Manage Scheduler" url="/admin/scheduler.jsf"/>
 				<p:submenu label="Security">
 				   <p:menuitem value="Manage Users" url="/admin/adduser.jsf" />
 				   <p:menuitem value="Manage Groups" url="/admin/groups.jsf" />

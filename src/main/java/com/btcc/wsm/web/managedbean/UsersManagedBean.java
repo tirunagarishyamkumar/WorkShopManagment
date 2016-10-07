@@ -397,7 +397,7 @@ public class UsersManagedBean implements Serializable {
 		this.insertDelete = insertDelete;
 	}
 
-	public void showDailogue() {
+	public void showDialogue() {
 		populatePickList();
 		RequestContext.getCurrentInstance().execute(
 				"PF('newUserDialog').show()");
