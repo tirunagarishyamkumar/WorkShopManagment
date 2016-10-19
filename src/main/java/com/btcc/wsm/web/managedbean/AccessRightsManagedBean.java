@@ -11,7 +11,8 @@ import com.btcc.wsm.service.UsersService;
 import com.btcc.wsm.util.FacesUtil;
 import com.btcc.wsm.util.SystemAuditTrailActivity;
 import com.btcc.wsm.util.WSMException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AccessRightsManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	final static Logger logger = Logger
+	final static Logger logger = LogManager
 			.getLogger(AccessRightsManagedBean.class);
 
 	@Autowired
@@ -202,7 +203,7 @@ public class AccessRightsManagedBean implements Serializable {
 						"AccessRightsManagedBean.doUpdateAccessRights: Error while updating AccessRight: "
 								+ selectedAccessRights.getAccessRights(), e);
 				FacesMessage msg = new FacesMessage(
-						"Error in upating : AccessRight "
+						"Error in updating : AccessRight "
 								+ selectedAccessRights.getAccessRights());
 				msg.setSeverity(FacesMessage.SEVERITY_ERROR);
 				FacesContext.getCurrentInstance().addMessage(null, msg);
@@ -210,49 +211,12 @@ public class AccessRightsManagedBean implements Serializable {
 		}
 	}
 
-	void checkBeforeUpdate() {
-		loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
-		HashSet<String> accessRights = usersService
-				.getAccessRightsMapForUser(getLoggedInUser().getUsername());
-		if (accessRights.contains("SY0403E")
-				|| accessRights.contains("SY0403D")) {
-			if ((getLoggedInUser().getUsername().equalsIgnoreCase("system"))
-					&& selectedAccessRights.getCreatedBy().equalsIgnoreCase(
-							"system")) {
-				RequestContext.getCurrentInstance().execute(
-						"PF('accessRightsDialog').show()");
-			} else {
-				if (!(getLoggedInUser().getUsername()
-						.equalsIgnoreCase("system"))
-						&& !(selectedAccessRights.getCreatedBy()
-								.equalsIgnoreCase("system"))) {
-					RequestContext.getCurrentInstance().execute(
-							"PF('accessRightsDialog').show()");
-				} else {
-					RequestContext.getCurrentInstance().execute(
-							"PF('accessRightsDialog').hide()");
-					FacesMessage msg = new FacesMessage(
-							"You Dont have Rights to Update this Record");
-					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-					FacesContext.getCurrentInstance().addMessage(null, msg);
-					return;
-				}
-			}
-		} else {
-			RequestContext.getCurrentInstance().execute(
-					"PF('accessRightsDialog').hide()");
-			FacesMessage msg = new FacesMessage(
-					"You Dont have Rights to Update this Record");
-			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, msg);
-			return;
-		}
 
-	}
 
 	public void onRowSelect(SelectEvent event) {
 		setSelectedAccessRights((AccessRights) event.getObject());
-		checkBeforeUpdate();
+		RequestContext.getCurrentInstance().execute(
+				"PF('accessRightsDialog').show()");
 	}
 
 	public void doDeleteAccessRights() {
@@ -345,7 +309,7 @@ public class AccessRightsManagedBean implements Serializable {
 		this.systemAuditTrailRecordService = systemAuditTrailRecordService;
 	}
 
-	public void showDailogue() {
+	public void showDialogue() {
 
 		RequestContext.getCurrentInstance().execute(
 				"PF('newAccessRightsDialog').show()");

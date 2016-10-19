@@ -6,7 +6,8 @@ import com.btcc.wsm.service.AccessLogService;
 import com.btcc.wsm.service.SystemAuditTrailRecordService;
 import com.btcc.wsm.service.UsersService;
 import com.btcc.wsm.util.*;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.security.core.Authentication;
@@ -36,7 +37,7 @@ public class LoginAuthenticationBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
-	final static Logger logger = Logger.getLogger(LoginAuthenticationBean.class);
+	final static Logger logger = LogManager.getLogger(LoginAuthenticationBean.class);
 
 	@Autowired
 	private UsersService usersService;

@@ -22,7 +22,8 @@ import com.btcc.wsm.util.SystemAuditTrailLevel;
 import com.btcc.wsm.util.WSMException;
 import com.btcc.wsm.web.datamodel.RoleDataModel;
 import com.btcc.wsm.service.UsersService;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DualListModel;
@@ -42,7 +43,7 @@ public class RoleManagedBean implements Serializable {
 	@Autowired
 	RoleService roleService;
 
-	final static Logger logger = Logger.getLogger(RoleManagedBean.class);
+	final static Logger logger = LogManager.getLogger(RoleManagedBean.class);
 
 	@Autowired
 	private AccessRightsService accessRightsService;
@@ -272,6 +273,8 @@ public class RoleManagedBean implements Serializable {
 
 		Role roleSelected = (Role) event.getObject();
 		setSelectedRole(roleService.findByRole(roleSelected.getRole()));
+		RequestContext.getCurrentInstance().execute(
+				"PF('roleDialog').show()");
 
 	}
 
@@ -397,7 +400,7 @@ public class RoleManagedBean implements Serializable {
 		this.dualAccessRightsList = dualAccessRightsList;
 	}
 
-	public void showDailogue() {
+	public void showDialogue() {
 		populatePickList();
 		RequestContext.getCurrentInstance().execute(
 				"PF('newRoleDialog').show()");

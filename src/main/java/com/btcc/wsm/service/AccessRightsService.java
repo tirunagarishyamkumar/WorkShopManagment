@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * Created by sivak_000 on 10/9/2016.
+ * Created by siva on 10/9/2016.
  */
 public interface AccessRightsService {
 

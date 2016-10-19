@@ -18,7 +18,8 @@ import com.btcc.wsm.util.SystemAuditTrailActivity;
 import com.btcc.wsm.util.SystemAuditTrailLevel;
 import com.btcc.wsm.util.WSMException;
 import com.btcc.wsm.web.datamodel.SystemParametersDataModel;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,7 +35,7 @@ public class SystemParameterManagedBean implements Serializable {
 	private UsersService usersService;
 	@Autowired
 	SystemParameterService systemParametersService;
-	final static Logger logger = Logger
+	final static Logger logger = LogManager
 			.getLogger(SystemParameterManagedBean.class);
 
 	private List<SystemParameter> systemParametersList;

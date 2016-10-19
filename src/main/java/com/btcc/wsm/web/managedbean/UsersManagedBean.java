@@ -10,7 +10,8 @@ import com.btcc.wsm.service.UsersService;
 import com.btcc.wsm.util.SystemAuditTrailActivity;
 import com.btcc.wsm.util.WSMException;
 import com.btcc.wsm.web.datamodel.UsersDataModel;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.primefaces.context.RequestContext;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.DualListModel;
@@ -35,7 +36,7 @@ public class UsersManagedBean implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	final static Logger logger = Logger.getLogger(UsersManagedBean.class);
+	final static Logger logger = LogManager.getLogger(UsersManagedBean.class);
 
 	List<String> users = new ArrayList<String>();
 	private Users selectedUser = new Users();
@@ -269,6 +270,8 @@ public class UsersManagedBean implements Serializable {
 
 		Users userSelected = (Users) event.getObject();
 		setSelectedUser(usersService.findByUsername(userSelected.getUsername()));
+		RequestContext.getCurrentInstance().execute(
+				"PF('userDialog').show()");
 	}
 
 

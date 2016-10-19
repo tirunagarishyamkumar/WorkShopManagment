@@ -8,7 +8,8 @@ import javax.faces.bean.RequestScoped;
 import com.btcc.wsm.model.AccessLog;
 import com.btcc.wsm.service.AccessLogService;
 import com.btcc.wsm.web.datamodel.AccessLogDataModel;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -18,7 +19,7 @@ public class AccessLogManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	final static Logger logger = Logger.getLogger(AccessLogManagedBean.class);
+	final static Logger logger = LogManager.getLogger(AccessLogManagedBean.class);
 
 	@Autowired
 	AccessLogService accessLogService;

@@ -6,7 +6,7 @@
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
     <ui:composition template="/templates/userlayout.xhtml">
-        <ui:define name="title">List Customer</ui:define>
+        <ui:define name="title">Manage Customer</ui:define>
         <ui:define name="content">
             <table width="100%">
                 <tr>
@@ -17,13 +17,37 @@
 
                 <tr>
                     <td>
-                        <h1>List Customer</h1>
+                        <h1>Manage Customer</h1>
                     </td>
                 </tr>
             </table>
+
+            <h:form>
+                <p:commandButton value="Add New" ajax="false"  />
+            </h:form>
+            <br/><br/>
+            <h:form id="customerTableForm">
+                <p:messages autoUpdate="true" globalOnly="true"/>
+                <p:dataTable id="customerTable" widgetVar="customerTable"   var="customer" value="#{customerManagedBean.customerDataModel}" rowKey="#{customer.id}"
+                             selection="#{customerManagedBean.selectedCustomer}" selectionMode="single"
+                             rows="20" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100" >
+
+                    <p:column width="10%" id="nameHeader" sortBy="#{customer.name}"><f:facet name="header"> Name </f:facet> <h:outputText value="#{customer.name}" /></p:column>
+                    <p:column width="10%" id="engineHeader" sortBy="#{customer.engine}"><f:facet name="header"> Engine </f:facet> <h:outputText value="#{customer.engine}" /></p:column>
+                    <p:column width="10%" id="accountNumberHeader"  sortBy="#{customer.createdBy}" ><f:facet name="header"> Account No  </f:facet><h:outputText value="#{customer.createdBy}" /></p:column>
+                    <p:column width="15%" id="chassisNoHeader"  sortBy="#{customer.chassisNo}" ><f:facet name="header">Chassis No</f:facet><h:outputText value="#{customer.chassisNo}" /></p:column>
+                    <p:column width="10%" id="capacityHeader"  sortBy="#{customer.capacity}" ><f:facet name="header"> Capacity  </f:facet><h:outputText value="#{customer.capacity}" /></p:column>
+                    <p:column width="15%" id="colorHeader"  sortBy="#{customer.color}" ><f:facet name="header">Color</f:facet><h:outputText value="#{customer.color}" /></p:column>
+                    <p:column width="10%" id="createdByHeader"  sortBy="#{customer.createdBy}" ><f:facet name="header"> Created By  </f:facet><h:outputText value="#{customer.createdBy}" /></p:column>
+                    <p:column width="15%" id="createdTimeHeader"  sortBy="#{customer.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{customer.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+
+                </p:dataTable>
+            </h:form>
+            <br/><br/>
         </ui:define>
     </ui:composition>
-    <br/><br/>
+
+
 </ui:composition>
 
 

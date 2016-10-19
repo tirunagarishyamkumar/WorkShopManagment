@@ -13,7 +13,7 @@
 
 	
   	<ui:composition template="/templates/userlayout.xhtml">
- 	<ui:define name="title">Access Rights Management</ui:define>
+ 	<ui:define name="title">Manage Access Rights</ui:define>
  	<ui:define name="content">
  	<table width="100%">
         <tr>
@@ -24,14 +24,14 @@
         
         <tr>      
 	      	 <td>
-				<h1>Access Rights Management</h1>
+				<h1>Manage Access Rights</h1>
 			 </td>
  		</tr>
  	</table> 
     
          <h:form id="commandButtonForm">
 	      <!--  <p:commandButton value="Add New" update=":newAccessRightsForm" rendered="#{loginAuthenticationBean.hasAccess('SY0403C')}"  oncomplete="PF('newAccessRightsDialog').show()" icon="ui-icon-star" title="Add New Access Right"/> -->
-	      <p:commandButton value="Add New" ajax="false" actionListener="#{accessRightsManagedBean.showDailogue}"  update=":newAccessRightsForm" />
+	      <p:commandButton value="Add New" ajax="false" actionListener="#{accessRightsManagedBean.showDialogue}"  update=":newAccessRightsForm" />
 	   </h:form>  
 	   <br/><br/>
 		<h:form id="accessRightsTableForm">

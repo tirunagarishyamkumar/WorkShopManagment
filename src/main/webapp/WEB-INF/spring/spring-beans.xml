@@ -13,6 +13,7 @@
 	<bean id="accessLog" class="com.btcc.wsm.model.AccessLog"/>
 	<bean id="accessLogService" class="com.btcc.wsm.serviceimpl.AccessLogServiceImpl" />
 	<bean id="userService" class="com.btcc.wsm.serviceimpl.UsersServiceImpl"/>
+	<bean id="customerService" class="com.btcc.wsm.serviceimpl.CustomerServiceImpl"/>
 
 
 </beans>

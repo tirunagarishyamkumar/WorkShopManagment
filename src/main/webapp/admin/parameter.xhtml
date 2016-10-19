@@ -12,7 +12,7 @@
 </h:head>
 	 
     	<ui:composition template="/templates/userlayout.xhtml">
- 	<ui:define name="title">System  Parameters  Management</ui:define>
+ 	<ui:define name="title">Manage Parameters</ui:define>
  	<ui:define name="content">
  	<table width="100%">
         <tr>
@@ -23,14 +23,14 @@
         
         <tr>      
 	      	 <td>
-				<h1>System Parameters</h1>
+				<h1>Manage Parameters</h1>
 			 </td>
  		</tr>
  	</table> 
 	
          <h:form id="commandButtonForm">
 	      <!--  <p:commandButton value="Add New" update=":newSystemParametersForm" rendered="#{loginAuthenticationBean.hasAccess('SY01C')}" oncomplete="PF('newSystemParametersDialog').show()" icon="ui-icon-star" title="Add New System Parameters"/> -->
-	       <p:commandButton value="Add New" ajax="false" actionListener="#{systemParameterManagedBean.showDailogue}"  update=":newSystemParametersForm" />
+	       <p:commandButton value="Add New" ajax="false" actionListener="#{systemParameterManagedBean.showDialogue}"  update=":newSystemParametersForm" />
 	   </h:form>   
         <br/>
 		<h:form id="systemParametersTableForm">	
@@ -57,9 +57,9 @@
           <h:form id="systemParameterDetailForm">
           <p:messages  autoUpdate="true"/>
                <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
-           			 <h:outputText value="Property Name :" ></h:outputText>
+           			 <h:outputText value="Parameter Name :" ></h:outputText>
                      <h:inputText value="#{systemParameterManagedBean.selectedSystemParameters.propertyName}" required="true" requiredMessage="Please Enter Property Name!" label="Property Name " ></h:inputText>
-           			 <h:outputText value="Property Value :"></h:outputText>
+           			 <h:outputText value="Parameter Value :"></h:outputText>
             		 <h:inputTextarea rows="6" cols="33"  value="#{systemParameterManagedBean.selectedSystemParameters.propertyValue}" required="true" requiredMessage="Please Enter Property Value!" label="Property Value"></h:inputTextarea>
                       <h:outputText value="Description :"></h:outputText>
                       <h:inputTextarea  rows="6" cols="33" value="#{systemParameterManagedBean.selectedSystemParameters.description}" required="true" requiredMessage="please Enter Description" label="Description "></h:inputTextarea>
@@ -71,14 +71,14 @@
               </p:panelGrid>
           </h:form>
       </p:dialog>
-      <p:dialog header="Add New System Parameters" widgetVar="newSystemParametersDialog" resizable="false" id="newSystemParemetersDlg" modal="true">
+      <p:dialog header="Add New Parameters" widgetVar="newSystemParametersDialog" resizable="false" id="newSystemParemetersDlg" modal="true">
          <h:form id="newSystemParametersForm">
          <p:messages autoUpdate="true" infoStyle="color:darkgreen" errorStyle="color:darkred" />
            <p:panelGrid id="displayNewSystemParameters" columns="2" cellpadding="4" style="margin:0 auto;">
             		
-			<h:outputText value="Property Name :" ></h:outputText>
+			<h:outputText value="Parameter Name :" ></h:outputText>
             <p:inputText  id="pname" value="#{systemParameterManagedBean.newSystemParameters.propertyName}" required="true" requiredMessage="Please Enter Property Name!" label="Property Name "></p:inputText>
-			<h:outputText value="Property  Value :"></h:outputText>
+			<h:outputText value="Parameter  Value :"></h:outputText>
             <p:inputTextarea rows="6" cols="33" value="#{systemParameterManagedBean.newSystemParameters.propertyValue}" required="true" requiredMessage="Please Enter Property Value!" label="Property Value "></p:inputTextarea>
             
             <h:outputText value="Description :" ></h:outputText>           

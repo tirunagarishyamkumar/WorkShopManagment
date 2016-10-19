@@ -1,4 +1,4 @@
-package com.btcc.wsm.util;
+package com.btcc.wsm.constant;
 
 public class ProjectConstants {
 

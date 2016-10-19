@@ -1,7 +1,18 @@
 package com.btcc.wsm.service;
 
+import com.btcc.wsm.model.Customer;
+
+import java.util.List;
+
 /**
- * Created by sivak_000 on 29/9/2016.
+ * Created by siva on 29/9/2016.
  */
 public interface CustomerService {
+
+    Customer create(Customer customer);
+    Customer update(Customer customer);
+    Customer findSingle(int id);
+    List<Customer> findAll();
+    void delete(Customer customer);
+
 }

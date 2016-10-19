@@ -6,7 +6,8 @@ import com.btcc.wsm.model.Users;
 import com.btcc.wsm.repository.UsersRepository;
 import com.btcc.wsm.service.UsersService;
 import com.btcc.wsm.util.WSMException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,7 +26,7 @@ public class UsersServiceImpl implements UsersService {
     private UsersRepository usersRepository;
 
 
-    private Logger log = Logger.getLogger(this.getClass());
+    private Logger log = LogManager.getLogger(this.getClass());
 
 
     @Transactional(rollbackFor = { Exception.class })

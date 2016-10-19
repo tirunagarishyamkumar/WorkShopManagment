@@ -5,7 +5,8 @@ import com.btcc.wsm.repository.AccessRightsRepository;
 import com.btcc.wsm.repository.CustomRepository;
 import com.btcc.wsm.service.AccessRightsService;
 import com.btcc.wsm.util.WSMException;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.annotation.Resource;
@@ -18,7 +19,7 @@ import java.util.Set;
  */
 public class AccessRightsServiceImpl implements AccessRightsService {
 
-    final static Logger logger = Logger.getLogger(AccessRightsServiceImpl.class);
+    final static Logger logger = LogManager.getLogger(AccessRightsServiceImpl.class);
 
 
     @Resource

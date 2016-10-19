@@ -8,7 +8,8 @@ import javax.faces.view.ViewScoped;
 import com.btcc.wsm.model.SystemAuditTrail;
 import com.btcc.wsm.service.SystemAuditTrailRecordService;
 import com.btcc.wsm.web.datamodel.SystemAuditTrailDataModel;
-import org.apache.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +21,7 @@ public class SystemAuditTrailManagedBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	final static Logger logger = Logger
+	final static Logger logger = LogManager
 			.getLogger(SystemAuditTrailManagedBean.class);
 
 	@Autowired

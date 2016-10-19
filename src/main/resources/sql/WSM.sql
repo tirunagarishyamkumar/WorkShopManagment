@@ -110,6 +110,53 @@ insert into role values(1,'system','2015-06-06 00:00:00','Role For Login',0,'sys
 insert into user_role values(1,1);
 
 
+-- operations
+
+-- customer table
+
+CREATE TABLE `customer`(
+	`id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(100) NOT NULL,
+	`account_number` varchar(100) NOT NULL,
+	`taxid_no` varchar(100) NOT NULL,
+	`term` varchar(100) NOT NULL,
+	`email` varchar(100) NOT NULL,
+	`engine` varchar(100) NOT NULL,
+	`chassis_no` varchar(100) NOT NULL,
+	`capacity` text NOT NULL,
+	`color` varchar(100) NOT NULL,
+	`address` varchar(255) NOT NULL,
+	`city` varchar(30) NOT NULL,
+	`state` varchar(100) NOT NULL,
+	`country` varchar(100) NOT NULL,
+	`postalcode` int NOT NULL,
+	`mobile_number` varchar(255) NOT NULL,
+	`home_number` varchar(255) NOT NULL,
+	`created_by` varchar(255) NULL,
+	`creation_time` datetime NULL,
+	`updated_by` varchar(255) NULL,
+	`update_time` datetime NULL,
+	`isDeleted` tinyint NOT NULL,
+	PRIMARY KEY (id));
+
+-- inventory
+
+-- item table
+
+CREATE TABLE `item`(
+	`id` int AUTO_INCREMENT NOT NULL,
+	`item_code` varchar(45) NOT NULL,
+	`item_name` varchar(255) NULL,
+	`creation_time` datetime NULL,
+	`isDeleted` tinyint NOT NULL,
+	`updated_by` varchar(255) NULL,
+	`update_time` datetime NULL,
+	PRIMARY KEY (id)
+
+);
+
+
+
 
 
 
