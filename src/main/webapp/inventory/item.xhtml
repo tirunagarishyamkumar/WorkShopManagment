@@ -21,6 +21,69 @@
                     </td>
                 </tr>
             </table>
+
+            <h:form id="commandButtonForm">
+                <p:commandButton value="Add New" ajax="false" actionListener="#{itemManagedBean.showDialogue}"  update=":newItemForm" />
+            </h:form>
+            <br/>
+            <h:form id="itemTableForm">
+                <p:messages autoUpdate="true"  globalOnly="true"/>
+                <p:dataTable id="itemTable"    var="item" value="#{itemManagedBean.itemDataModel}" widgetVar="itemSearch" rowKey="#{item.id}"
+                             scrollable="true" selectionMode="single" emptyMessage="No data found with given criteria"
+                             paginator="true" rows="20" 	paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100">
+
+                    <p:ajax event="rowSelect" listener="#{itemManagedBean.onRowSelect}" update=":itemDetailForm:display, :growl" />
+
+                    <p:column width="15%" id="itemNameHeader"  sortBy="#{item.itemName}"><f:facet name="header"> Item Name</f:facet><h:outputText value="#{item.itemName}"  /></p:column>
+                    <p:column width="15%" id="itemCodeHeader"  sortBy="#{item.itemCode}"><f:facet name="header"> Item Code</f:facet><h:outputText value="#{item.itemCode}"/></p:column>
+                    <p:column width="15%" id="createdByHeader"  sortBy="#{item.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{item.createdBy}" /></p:column>
+                    <p:column width="15%" id="createdTimeHeader"  sortBy="#{item.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{item.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+                    <p:column width="15%" id="lastModifiedByHeader" sortBy="#{item.lastModifiedBy}"><f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{item.lastModifiedBy}" /></p:column>
+                    <p:column width="15%" id="lastModifiedHeader" sortBy="#{item.lastModifiedTime}"><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{item.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+                </p:dataTable>
+            </h:form>
+            <p:growl id="growl"  life="1000"/>
+        </ui:define>
+        <ui:define name="dialog">
+            <p:dialog header="Update Item " styleClass="dlgCSS" widgetVar="itemDialog" resizable="false" id="itemDialog" modal="true" >
+                <h:form id="itemDetailForm">
+                    <p:messages  autoUpdate="true"/>
+                    <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
+                        <h:outputText value="Item Code :" ></h:outputText>
+                        <h:inputText value="#{itemManagedBean.selectedItem.itemCode}" required="true" requiredMessage="Please Enter Item Name!" label="Item Name " ></h:inputText>
+                        <h:outputText value="Item Value :"></h:outputText>
+                        <h:inputTextarea rows="6" cols="33"  value="#{itemManagedBean.selectedItem.itemValue}" required="true" requiredMessage="Please Enter Item Code!" label="Item Code"></h:inputTextarea>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Update" update=":itemTableForm:itemTable"  oncomplete="if(!args.validationFailed)  PF('itemDialog').hide()" validateClient="true" actionListener="#{itemManagedBean.update}"/>
+                            <p:commandButton value="Delete"  onclick="PF('cd').show()" oncomplete="PF('itemDialog').hide()"/>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:dialog header="Add New Item" widgetVar="newItemDialog" resizable="false" id="newItemDlg" modal="true">
+                <h:form id="newItemForm">
+                    <p:messages autoUpdate="true" infoStyle="color:darkgreen" errorStyle="color:darkred" />
+                    <p:panelGrid id="displayNewItem" columns="2" cellpadding="4" style="margin:0 auto;">
+
+                        <h:outputText value="Item Code :" ></h:outputText>
+                        <p:inputText  id="itemname" value="#{itemManagedBean.newItem.itemCode}" required="true" requiredMessage="Please Enter Item Name!" label="Item Name "></p:inputText>
+                        <h:outputText value="Item  Value :"></h:outputText>
+                        <p:inputTextarea rows="6" cols="33" value="#{itemManagedBean.newItem.itemValue}" required="true" requiredMessage="Please Enter Item Code!" label="Item Code"></p:inputTextarea>
+
+                        <f:facet name="footer">
+                            <p:commandButton value="Submit" update=":itemTableForm:itemTable"  oncomplete="if(!args.validationFailed) PF('newItemDialog').hide()" validateClient="true" actionListener="#{itemManagedBean.create}"/>
+                            <p:commandButton value="Cancel" oncomplete="PF('newItemDialog').hide()"></p:commandButton>
+                        </f:facet>
+                    </p:panelGrid>
+                </h:form>
+            </p:dialog>
+            <p:confirmDialog message="Are you sure?" header="Deleting Item" severity="alert" widgetVar="cd">
+                <h:form>
+                    <p:commandButton value="Yes" actionListener="#{itemManagedBean.delete}" update=":itemTableForm:itemTable"  oncomplete="PF('cd').hide();"/>
+                    <p:commandButton value="No" onclick="PF('cd').hide();PF('itemDialog').show();" type="button" />
+                </h:form>
+            </p:confirmDialog>
         </ui:define>
     </ui:composition>
     <br/><br/>

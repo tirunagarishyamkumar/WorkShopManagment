@@ -14,6 +14,7 @@
 	<bean id="accessLogService" class="com.btcc.wsm.serviceimpl.AccessLogServiceImpl" />
 	<bean id="userService" class="com.btcc.wsm.serviceimpl.UsersServiceImpl"/>
 	<bean id="customerService" class="com.btcc.wsm.serviceimpl.CustomerServiceImpl"/>
+	<bean id="itemService" class="com.btcc.wsm.serviceimpl.ItemServiceImpl"/>
 
 
 </beans>
