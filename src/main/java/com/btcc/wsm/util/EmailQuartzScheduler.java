@@ -23,6 +23,7 @@ public class EmailQuartzScheduler {
 
             JobDetail jobDetail = JobBuilder.newJob(EmailScheduler.class).withIdentity(Integer.toString(111), "EPGGroup").build();
 
+            assert cronExpression != null;
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(" EmailTrigger/" + 111, "WSMGroup").withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
                     .build();
 
@@ -33,10 +34,9 @@ public class EmailQuartzScheduler {
         } catch (SchedulerException e) {
 
             log.error("EmailScheduler Error : scheduleJob unable to start the job ", e);
-            return results;
+            return false;
         }
         log.info("EmailScheduler : Scheduled quartz job for scheduler time " + 111 + "and cron expression is " + cronExpression);
-        results = true;
 
         return false;
     }
@@ -65,6 +65,7 @@ public class EmailQuartzScheduler {
         String cronExpression = null;//scheduler.getCronExpression();
 
         try {
+            assert cronExpression != null;
             Trigger trigger = TriggerBuilder.newTrigger().withIdentity(" EmailTrigger/" + 111, "EPGGroup").withSchedule(CronScheduleBuilder.cronSchedule(cronExpression))
                     .build();
 
@@ -78,9 +79,9 @@ public class EmailQuartzScheduler {
         } catch (SchedulerException e) {
 
             log.error("EmailScheduler : SchedulerException unable to update and schedule job ", e);
-            return results;
+            return false;
 
         }
-        return results;
+        return true;
     }
 }
