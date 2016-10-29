@@ -5,25 +5,67 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
 
-<ui:composition template="/templates/userlayout.xhtml">
-    <ui:define name="title">Manage Customer</ui:define>
-    <ui:define name="content">
-        <table width="100%">
-            <tr>
-                <td align="right">
-                    <span style="color: grey;" >OP0401</span>
-                </td>
-            </tr>
+    <ui:composition template="/templates/userlayout.xhtml">
+        <ui:define name="title">Manage Customer</ui:define>
+        <ui:define name="content">
+            <table width="100%">
+                <tr>
+                    <td align="right">
+                        <span style="color: grey;" >OP0401</span>
+                    </td>
+                </tr>
 
-            <tr>
-                <td>
-                    <h1>Manage Customer</h1>
-                </td>
-            </tr>
-        </table>
-    </ui:define>
-</ui:composition>
-<br/><br/>
+                <tr>
+                    <td>
+                        <h1>Manage Customer</h1>
+                    </td>
+                </tr>
+            </table>
+
+            <h:form id="newCustomerForm">
+                <p:messages autoUpdate="true" infoStyle="color:darkgreen" errorStyle="color:darkred" />
+                <p:panelGrid id="displayNewCustomer" columns="2" cellpadding="4" style="margin:0 auto;">
+                    <h:outputText value="Customer Name :" ></h:outputText>
+                    <p:inputText  id="name" value="#{customerManagedBean.newCustomer.name}" required="true" requiredMessage="Please Enter Customer Name!" label="Customer Name "></p:inputText>
+                    <h:outputText value="Account Number :" ></h:outputText>
+                    <p:inputText  id="customeraccountnumber" value="#{customerManagedBean.newCustomer.accountNumber}" required="true" requiredMessage="Please Enter Account Number!" label="Account Number "></p:inputText>
+                    <h:outputText value="Tax Id No :"></h:outputText>
+                    <p:inputText id="taxidno"  value="#{customerManagedBean.newCustomer.taxidNo}" required="true" requiredMessage="Please Enter Tax Id No!" label="Tax Id No"></p:inputText>
+                    <h:outputText value="Term :"></h:outputText>
+                    <p:inputText id="term"  value="#{customerManagedBean.newCustomer.term}" required="true" requiredMessage="Please Enter Term!" label="Term"></p:inputText>
+                    <h:outputText value="Email :"></h:outputText>
+                    <p:inputText id="email"  value="#{customerManagedBean.newCustomer.email}" required="true" requiredMessage="Please Enter Email!" label="Email"></p:inputText>
+                    <h:outputText value="Engine :"></h:outputText>
+                    <p:inputText id="engine"  value="#{customerManagedBean.newCustomer.engine}" required="true" requiredMessage="Please Enter Engine!" label="Engine"></p:inputText>
+                    <h:outputText value="ChassisNo :"></h:outputText>
+                    <p:inputText id="chassisno"  value="#{customerManagedBean.newCustomer.chassisNo}" required="true" requiredMessage="Please Enter Chassis No!" label="Chassis No"></p:inputText>
+                    <h:outputText value="Capacity :"></h:outputText>
+                    <p:inputText id="capacity"  value="#{customerManagedBean.newCustomer.capacity}" required="true" requiredMessage="Please Enter Capacity!" label="Capacity"></p:inputText>
+                    <h:outputText value="Color :"></h:outputText>
+                    <p:inputText id="color"  value="#{customerManagedBean.newCustomer.color}" required="true" requiredMessage="Please Enter Color!" label="Color"></p:inputText>
+                    <h:outputText value="Address :"></h:outputText>
+                    <p:inputTextarea rows="6" cols="33" id="address"  value="#{customerManagedBean.newCustomer.address}" required="true" requiredMessage="Please Enter Address!" label="Address"></p:inputTextarea>
+                    <h:outputText value="City :"></h:outputText>
+                    <p:inputText id="City"  value="#{customerManagedBean.newCustomer.city}" required="true" requiredMessage="Please Enter City!" label="City"></p:inputText>
+                    <h:outputText value="State :"></h:outputText>
+                    <p:inputText id="state"  value="#{customerManagedBean.newCustomer.state}" required="true" requiredMessage="Please Enter state!" label="State"></p:inputText>
+                    <h:outputText value="Country :"></h:outputText>
+                    <p:inputText id="country"  value="#{customerManagedBean.newCustomer.country}" required="true" requiredMessage="Please Enter Country!" label="Country"></p:inputText>
+                    <h:outputText value="Postal Code :"></h:outputText>
+                    <p:inputText id="postalcode"  value="#{customerManagedBean.newCustomer.postalcode}" required="true" requiredMessage="Please Enter Postal Code!" label="Postal Code"></p:inputText>
+                    <h:outputText value="Mobile Number :"></h:outputText>
+                    <p:inputText id="mobilenumber"  value="#{customerManagedBean.newCustomer.mobileNumber}" required="true" requiredMessage="Please Enter Mobile Number!" label="Mobile Number"></p:inputText>
+                    <h:outputText value="Homer Number :"></h:outputText>
+                    <p:inputText id="homenumber"  value="#{customerManagedBean.newCustomer.homeNumber}" required="false" requiredMessage="Please Enter Home Number!" label="Home Number"></p:inputText>
+                    <f:facet name="footer">
+                        <p:commandButton value="Submit" action="#{customerManagedBean.create}"/>
+                        <h:button style="padding: .3em 1em;" styleClass="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-text ui-c" action="listcustomer?faces-redirect=true" value="Cancel" />
+                    </f:facet>
+                </p:panelGrid>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+    <br/><br/>
 </ui:composition>
 
 
