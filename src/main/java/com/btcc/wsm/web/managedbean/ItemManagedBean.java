@@ -138,5 +138,6 @@ public class ItemManagedBean implements Serializable{
     public void reset(){
         newItem=new Item();
         selectedItem=new Item();
+
     }
 }
