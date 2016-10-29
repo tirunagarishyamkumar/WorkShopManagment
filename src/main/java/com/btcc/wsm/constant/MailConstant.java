@@ -25,5 +25,7 @@ public class MailConstant {
 
     //Added test for to check pull request1
 
+    //Added test for to check pull request2
+
 
 }
