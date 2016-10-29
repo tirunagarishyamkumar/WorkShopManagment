@@ -21,5 +21,9 @@ public class MailConstant {
     //CURRENCY CODE
     public static final String MYR="MYR";
 
+    //Added test for to check pull request
+
+    //Added test for to check pull request1
+
 
 }
