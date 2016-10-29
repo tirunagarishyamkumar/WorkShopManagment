@@ -1,26 +1,12 @@
 package com.btcc.wsm.model;
 
 
+import org.hibernate.annotations.Type;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 
 @Entity
@@ -66,6 +52,7 @@ public class Role implements Serializable{
 	 
 	
 	private boolean isDeleted= false;
+	private boolean active=true;
 	
 	public Role(){
 		
@@ -140,11 +127,7 @@ public class Role implements Serializable{
 		return lastModifiedBy;
 	}
 
-	
-	
-	
-	
-	
+
 	public Set<AccessRights> getAccessRights() {
 		return accessRights;
 	}
@@ -154,6 +137,15 @@ public class Role implements Serializable{
 		this.accessRights = accessRights;
 	}
 
+	@Column(name = "isDeleted", columnDefinition = "NUMBER(1)")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 
 	@Override
 	public boolean equals(Object obj) {
@@ -169,5 +161,8 @@ public class Role implements Serializable{
 	@Override
 	public int hashCode() {
 		return id;
-	}	
+	}
+
+
+
 }

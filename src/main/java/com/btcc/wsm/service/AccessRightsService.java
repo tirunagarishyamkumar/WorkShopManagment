@@ -19,5 +19,5 @@ public interface AccessRightsService {
     List<AccessRights> findAccessRightsByAccessRight(String accessRight);
     AccessRights findAccessRights(String accessRight);
     boolean checkAccessRights(String accessRight);
-    boolean findAccessRightsByNameById(String accessRight,int Id);
+    boolean findAccessRightsByNameById(String accessRight, int Id);
 }

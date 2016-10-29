@@ -33,13 +33,13 @@
 		</property>
 	</bean>
 
-      <jee:jndi-lookup id="bpsdatasource" jndi-name="java:jboss/datasources/WMSDS" cache="true" lookup-on-startup="true"/>
-  <!--  <bean id="bpsdatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-		<property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver" />
-		<property name="url" value="jdbc:sqlserver://localhost:1433;DatabaseName=BPS" />
-		<property name="username" value="bft" />		
-	   <property name="password" value="1700819819" /> 
-	</bean>     -->
+      <!--<jee:jndi-lookup id="bpsdatasource" jndi-name="java:jboss/datasources/WMSDS" cache="true" lookup-on-startup="true"/>-->
+    <bean id="bpsdatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/wms" />
+		<property name="username" value="root" />
+	   <property name="password" value="shyam" />
+	</bean>
 	
 
 	

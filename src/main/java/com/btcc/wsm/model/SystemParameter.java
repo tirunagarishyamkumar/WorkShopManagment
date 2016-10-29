@@ -1,18 +1,9 @@
 package com.btcc.wsm.model;
 
-import java.io.Serializable;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Lob;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
 import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name="system_parameter")
@@ -50,6 +41,7 @@ public class SystemParameter  implements Serializable{
 	private java.util.Date lastModifiedTime;
 	
 	private boolean isDeleted = false;
+	private boolean active=true;
 	
     public SystemParameter(){
     	
@@ -153,8 +145,16 @@ public class SystemParameter  implements Serializable{
 				+ ", propertyValue=" + propertyValue + ", description="
 				+ description + "]";
 	}
-	
-	
-	
+
+
+	@Column(name = "isDeleted", columnDefinition = "NUMBER(1)")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 		
  }

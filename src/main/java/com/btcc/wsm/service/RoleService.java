@@ -21,5 +21,5 @@ public interface RoleService {
     List<String> findRoleNamesByUsername(String username);
 
     boolean checkRole(String role);
-    boolean findRoleByNameById(String role,int Id);
+    boolean findRoleByNameById(String role, int Id);
 }

@@ -1,16 +1,16 @@
 package com.btcc.wsm.web.managedbean;
 
 
-import com.btcc.wsm.model.Users;
-import com.btcc.wsm.service.SystemAuditTrailRecordService;
-import com.btcc.wsm.util.SystemAuditTrailLevel;
-import com.btcc.wsm.web.datamodel.AccessRightsDataModel;
 import com.btcc.wsm.model.AccessRights;
+import com.btcc.wsm.model.Users;
 import com.btcc.wsm.service.AccessRightsService;
+import com.btcc.wsm.service.SystemAuditTrailRecordService;
 import com.btcc.wsm.service.UsersService;
 import com.btcc.wsm.util.FacesUtil;
 import com.btcc.wsm.util.SystemAuditTrailActivity;
+import com.btcc.wsm.util.SystemAuditTrailLevel;
 import com.btcc.wsm.util.WSMException;
+import com.btcc.wsm.web.datamodel.AccessRightsDataModel;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.primefaces.context.RequestContext;
@@ -22,7 +22,6 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
-import java.util.HashSet;
 import java.util.List;
 
 @Component
@@ -38,7 +37,7 @@ public class AccessRightsManagedBean implements Serializable {
 	private UsersService usersService;
 
 	@Autowired
-	AccessRightsService accessRightsService;
+    AccessRightsService accessRightsService;
 
 	private List<AccessRights> accessRightsList;
 	private AccessRightsDataModel accessRightsDataModel;
@@ -228,7 +227,7 @@ public class AccessRightsManagedBean implements Serializable {
 					.getSessionMapValue("LOGGEDIN_USER");
 			getAccessRightsService().delete(selectedAccessRights.getId());
 			setInsertDelete(true);
-			if (accessRightsList == null || insertDelete == true) {
+			if (accessRightsList == null || insertDelete) {
 				accessRightsList = accessRightsService.findAll();
 			}
 			systemAuditTrailRecordService.log(SystemAuditTrailActivity.DELETED,

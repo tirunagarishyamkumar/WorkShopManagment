@@ -16,9 +16,9 @@ public interface SystemParameterService {
     SystemParameter update(SystemParameter systemParameter);
     SystemParameter findById(int id);
     boolean  checkPropertyName(String propertyName);
-    boolean  checkPropertyNameWithId(String propertyName,int id);
+    boolean  checkPropertyNameWithId(String propertyName, int id);
     String findByPropertyName(String propertyName);
     String getSystemParameterName(String propertyName);
-    SystemParameter getByPropertyNameAndIsDeleted(String propertyName,boolean isDeletedFlag);
+    SystemParameter getByPropertyNameAndIsDeleted(String propertyName, boolean isDeletedFlag);
 
 }

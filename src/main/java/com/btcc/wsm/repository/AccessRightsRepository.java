@@ -11,16 +11,17 @@ import org.springframework.data.repository.query.Param;
 
 public interface AccessRightsRepository extends CrudRepository<AccessRights, Integer>{
 
-	@Query("select ar from AccessRights ar where isDeleted = 0")
-	 List<AccessRights> findAll();
+	/*@Query("select ar from AccessRights ar where isDeleted = 0")
+	 List<AccessRights> findAll();*/
+	List<AccessRights> findAllByIsDeletedOrderByCreationTimeDesc(boolean isDeleted);
 	
-	@Query("select ar from AccessRights ar where isDeleted = 0")
+	@Query("select ar from AccessRights ar where isDeleted = 0 and active=1")
 	 Set<AccessRights> findAllInSet();
 	
-	@Query("select ar from AccessRights ar where accessRights like ? and isDeleted = 0")
+	@Query("select ar from AccessRights ar where accessRights like ? and isDeleted = 0 and active=1")
 	List<AccessRights> findByAccessRightLike(String accessRight);
 	
-	@Query("select ar from AccessRights ar where accessRights = :accessRight and isDeleted = 0")
+	@Query("select ar from AccessRights ar where accessRights = :accessRight and isDeleted = 0 and active=1")
     AccessRights findByAccessRight(@Param("accessRight")String accessRight);
 	
 	@Query("select ar from AccessRights ar where ar.accessRights=? and isDeleted=0")

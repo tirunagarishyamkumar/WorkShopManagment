@@ -8,7 +8,7 @@
    
  <h:head>
 	    <title>System  Parameters  </title>
-          <meta http-equiv="X-UA-Compatible" content="IE=8" />
+     <meta http-equiv="X-UA-Compatible" content="IE=8" />
 </h:head>
 	 
     	<ui:composition template="/templates/userlayout.xhtml">
@@ -41,13 +41,19 @@
        
      	<p:ajax event="rowSelect" listener="#{systemParameterManagedBean.onRowSelect}" update=":systemParameterDetailForm:display, :growl" />
         
-        <p:column width="15%" id="propertyNameHeader"  sortBy="#{systemParameters0.propertyName}"><f:facet name="header"> Property Name</f:facet><h:outputText value="#{systemParameters0.propertyName}"  /></p:column>
-        <p:column width="15%" headerText="Parameter Value" sortBy="#{systemParameters0.propertyValue}"><f:facet name="header"> Property Value</f:facet><h:outputText value="#{systemParameters0.propertyValue}"/></p:column>
-        <p:column width="15%" id="descHeader"  sortBy="#{systemParameters0.description}" ><f:facet name="header"> Description</f:facet><h:outputText value="#{systemParameters0.description}" /></p:column>
-        <p:column width="15%" id="createdByHeader"  sortBy="#{systemParameters0.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{systemParameters0.createdBy}" /></p:column>
-	    <p:column width="15%" id="createdTimeHeader"  sortBy="#{systemParameters0.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{systemParameters0.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>	             
-        <p:column width="15%" id="lastModifiedByHeader" sortBy="#{systemParameters0.lastModifiedBy}"><f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{systemParameters0.lastModifiedBy}" /></p:column>
-	    <p:column width="15%" id="lastModifiedHeader" sortBy="#{systemParameters0.lastModifiedTime}"><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{systemParameters0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+        <p:column width="15%" id="propertyNameHeader"  style="text-align:center" sortBy="#{systemParameters0.propertyName}"><f:facet name="header"> Property Name</f:facet><h:outputText value="#{systemParameters0.propertyName}"  /></p:column>
+        <p:column width="15%" headerText="Parameter Value" style="text-align:center" sortBy="#{systemParameters0.propertyValue}"><f:facet name="header"> Property Value</f:facet><h:outputText value="#{systemParameters0.propertyValue}"/></p:column>
+        <p:column width="15%" id="descHeader"  style="text-align:center" sortBy="#{systemParameters0.description}" ><f:facet name="header"> Description</f:facet><h:outputText value="#{systemParameters0.description}" /></p:column>
+            <p:column width="10%" id="statusHeader" resizable="true"
+                      style="text-align:center" sortBy="#{systemParameters0.active}" filterBy="#{systemParameters0.active}" filterStyle="display:none">
+                <f:facet name="header">Status </f:facet>
+                <h:outputText
+                        value="#{systemParameters0.active eq true ? 'Active' : 'InActive'}" />
+            </p:column>
+        <p:column width="15%" id="createdByHeader" style="text-align:center"  sortBy="#{systemParameters0.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{systemParameters0.createdBy}" /></p:column>
+	    <p:column width="15%" id="createdTimeHeader" style="text-align:center"  sortBy="#{systemParameters0.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{systemParameters0.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+        <p:column width="15%" id="lastModifiedByHeader" style="text-align:center" sortBy="#{systemParameters0.lastModifiedBy}"><f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{systemParameters0.lastModifiedBy}" /></p:column>
+	    <p:column width="15%" id="lastModifiedHeader" style="text-align:center" sortBy="#{systemParameters0.lastModifiedTime}"><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{systemParameters0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
    </p:dataTable>
    </h:form>
    <p:growl id="growl"  life="1000"/> 
@@ -63,7 +69,15 @@
             		 <h:inputTextarea rows="6" cols="33"  value="#{systemParameterManagedBean.selectedSystemParameters.propertyValue}" required="true" requiredMessage="Please Enter Property Value!" label="Property Value"></h:inputTextarea>
                       <h:outputText value="Description :"></h:outputText>
                       <h:inputTextarea  rows="6" cols="33" value="#{systemParameterManagedBean.selectedSystemParameters.description}" required="true" requiredMessage="please Enter Description" label="Description "></h:inputTextarea>
-                             
+                   <h:outputText value="Status" styleClass="redasterisk"></h:outputText>
+                   <p:selectOneMenu
+                           value="#{systemParameterManagedBean.selectedSystemParameters.active}"
+                           required="true" requiredMessage="Please Enter  Status"
+                           label="Status ">
+                       <f:selectItem itemLabel="Active" itemValue="true" />
+                       <f:selectItem itemLabel="InActive" itemValue="false" />
+
+                   </p:selectOneMenu>
                      <f:facet name="footer">
                             <p:commandButton value="Update" update=":systemParametersTableForm:systemParameterTable"  oncomplete="if(!args.validationFailed)  PF('systemParameterDialog').hide()" validateClient="true" actionListener="#{systemParameterManagedBean.doUpdateSystemParameter}"/>
                             <p:commandButton value="Delete"  onclick="PF('cd').show()" oncomplete="PF('systemParameterDialog').hide()"/>
@@ -83,7 +97,13 @@
             
             <h:outputText value="Description :" ></h:outputText>           
 			<p:inputTextarea  rows="6" cols="33" value="#{systemParameterManagedBean.newSystemParameters.description}" required="true" requiredMessage="please Enter Description" label="Description " ></p:inputTextarea>
-		    
+               <h:outputText value="Status" styleClass="redasterisk"></h:outputText>
+               <p:selectOneMenu value="#{systemParameterManagedBean.newSystemParameters.active}"
+                                required="true" requiredMessage="please Enter  Status"
+                                label="Status ">
+                   <f:selectItem itemLabel="Active" itemValue="true" />
+                   <f:selectItem itemLabel="Inactive" itemValue="false" />
+               </p:selectOneMenu>
 			<f:facet name="footer">
                             <p:commandButton value="Submit" update=":systemParametersTableForm:systemParameterTable"  oncomplete="if(!args.validationFailed) PF('newSystemParametersDialog').hide()" validateClient="true" actionListener="#{systemParameterManagedBean.doCreateSystemParameter}"/>
                              <p:commandButton value="Cancel" oncomplete="PF('newSystemParametersDialog').hide()"></p:commandButton>

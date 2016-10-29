@@ -100,14 +100,8 @@ public class UsersServiceImpl implements UsersService {
 
     public HashSet<String> getAccessRightsMapForUser(String userId)  {
         HashSet<String> accessRightsSet = new HashSet<String>();
-
         Users user = usersRepository.findByUsername(userId);
-
-
-
-
         Set<Role> roleSet =  user.getUserRoles();
-
         Iterator<Role> roleIterator = roleSet.iterator();
         while(roleIterator.hasNext()) {
             Role currentRole = roleIterator.next();
@@ -118,8 +112,6 @@ public class UsersServiceImpl implements UsersService {
                 accessRightsSet.add(currentAccessRights.getAccessRights());
             }
         }
-
-
         return accessRightsSet;
     }
 
@@ -142,8 +134,6 @@ public class UsersServiceImpl implements UsersService {
                 usersToBeUpdated.setPassword(users.getPassword());
                 usersToBeUpdated.setName(users.getName());
                 usersToBeUpdated.setEmail(users.getEmail());
-                usersToBeUpdated.setControlUnit(users.getControlUnit());
-                usersToBeUpdated.setBranchNo(users.getBranchNo());
                 usersToBeUpdated.setLastModifiedBy(users.getLastModifiedBy());
                 usersToBeUpdated.setLastModifiedTime(new Date());
                 Set<Role> roleSet = new HashSet<Role>();
@@ -167,10 +157,9 @@ public class UsersServiceImpl implements UsersService {
             if(usersToBeUpdated != null){
                 usersToBeUpdated.setUsername(users.getUsername());
                 //usersToBeUpdated.setPassword(users.getPassword());
+                usersToBeUpdated.setActive(users.isActive());
                 usersToBeUpdated.setName(users.getName());
                 usersToBeUpdated.setEmail(users.getEmail());
-                usersToBeUpdated.setControlUnit(users.getControlUnit());
-                usersToBeUpdated.setBranchNo(users.getBranchNo());
                 usersToBeUpdated.setLastModifiedBy(users.getLastModifiedBy());
                 usersToBeUpdated.setLastModifiedTime(new Date());
                 Set<Role> roleSet = new HashSet<Role>();

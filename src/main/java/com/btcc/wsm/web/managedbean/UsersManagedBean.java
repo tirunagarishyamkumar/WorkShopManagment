@@ -1,13 +1,14 @@
 package com.btcc.wsm.web.managedbean;
 
+import com.btcc.wsm.constant.AccessRightsConstants;
 import com.btcc.wsm.model.Role;
 import com.btcc.wsm.model.Users;
 import com.btcc.wsm.service.RoleService;
 import com.btcc.wsm.service.SystemAuditTrailRecordService;
-import com.btcc.wsm.util.FacesUtil;
-import com.btcc.wsm.util.SystemAuditTrailLevel;
 import com.btcc.wsm.service.UsersService;
+import com.btcc.wsm.util.FacesUtil;
 import com.btcc.wsm.util.SystemAuditTrailActivity;
+import com.btcc.wsm.util.SystemAuditTrailLevel;
 import com.btcc.wsm.util.WSMException;
 import com.btcc.wsm.web.datamodel.UsersDataModel;
 import org.apache.logging.log4j.LogManager;
@@ -24,7 +25,6 @@ import javax.faces.bean.ViewScoped;
 import javax.faces.context.FacesContext;
 import java.io.Serializable;
 import java.util.*;
-
 
 
 @Component
@@ -230,7 +230,7 @@ public class UsersManagedBean implements Serializable {
 			newUser.setUserRoles(selectedRoleSet);
 			usersService.create(newUser);
 			setInsertDelete(true);
-			if (usersList == null || insertDelete == true) {
+			if (usersList == null || insertDelete) {
 				usersList = usersService.findAll();
 			}
 			systemAuditTrailRecordService.log(SystemAuditTrailActivity.CREATED,
@@ -264,6 +264,35 @@ public class UsersManagedBean implements Serializable {
 		/* } */
 	}
 
+	void checkBeforeUpdate(){
+		loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
+		HashSet<String> accessRights=usersService.getAccessRightsMapForUser(getLoggedInUser().getUsername());
+		if(accessRights.contains(AccessRightsConstants.ACCESS_FOR_UPDATE_USER)||accessRights.contains(AccessRightsConstants.ACCESS_FOR_DELETE_USER)){
+			if((getLoggedInUser().getUsername().equalsIgnoreCase("system"))&&selectedUser.getCreatedBy().equalsIgnoreCase("system")){
+				RequestContext.getCurrentInstance().execute("PF('userDialog').show()");
+			}
+			else{
+				if(!(getLoggedInUser().getUsername().equalsIgnoreCase("system"))&&!(selectedUser.getCreatedBy().equalsIgnoreCase("system"))){
+					RequestContext.getCurrentInstance().execute("PF('userDialog').show()");
+				}
+				else{
+					RequestContext.getCurrentInstance().execute("PF('userDialog').hide()");
+					FacesMessage msg = new FacesMessage("You Dont have Rights to Update this Record");
+					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					return;
+				}
+			}
+		}
+		else{
+			RequestContext.getCurrentInstance().execute("PF('userDialog').hide()");
+			FacesMessage msg = new FacesMessage("You Dont have Rights to Update this Record");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return;
+		}
+
+	}
 
 
 	public void onRowSelect(SelectEvent event) {
@@ -272,6 +301,7 @@ public class UsersManagedBean implements Serializable {
 		setSelectedUser(usersService.findByUsername(userSelected.getUsername()));
 		RequestContext.getCurrentInstance().execute(
 				"PF('userDialog').show()");
+		checkBeforeUpdate();
 	}
 
 
