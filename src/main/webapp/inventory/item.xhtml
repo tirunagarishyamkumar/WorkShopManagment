@@ -4,7 +4,9 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets"
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:c="http://java.sun.com/jsp/jstl/core">
-
+    <f:metadata>
+        <f:viewAction action="#{itemManagedBean.reset}" />
+    </f:metadata>
     <ui:composition template="/templates/userlayout.xhtml">
         <ui:define name="title">Manage Item</ui:define>
         <ui:define name="content">
@@ -50,26 +52,30 @@
                     <p:messages  autoUpdate="true"/>
                     <p:panelGrid id="display" columns="2" cellpadding="4" style="margin:0 auto;">
                         <h:outputText value="Item Code :" ></h:outputText>
-                        <h:inputText value="#{itemManagedBean.selectedItem.itemCode}" required="true" requiredMessage="Please Enter Item Name!" label="Item Name " ></h:inputText>
+                        <h:inputText value="#{itemManagedBean.selectedItem.itemCode}" required="true" requiredMessage="Please Enter Item Code!" label="Item Code " ></h:inputText>
+                        <h:outputText value="Item Name :" ></h:outputText>
+                        <h:inputText value="#{itemManagedBean.selectedItem.itemName}" required="true" requiredMessage="Please Enter Item Name!" label="Item Name " ></h:inputText>
                         <h:outputText value="Item Value :"></h:outputText>
-                        <h:inputTextarea rows="6" cols="33"  value="#{itemManagedBean.selectedItem.itemValue}" required="true" requiredMessage="Please Enter Item Code!" label="Item Code"></h:inputTextarea>
+                        <h:inputTextarea rows="6" cols="33"  value="#{itemManagedBean.selectedItem.itemValue}" required="true" requiredMessage="Please Enter Item Value!" label="Item Value"></h:inputTextarea>
 
                         <f:facet name="footer">
                             <p:commandButton value="Update" update=":itemTableForm:itemTable"  oncomplete="if(!args.validationFailed)  PF('itemDialog').hide()" validateClient="true" actionListener="#{itemManagedBean.update}"/>
-                            <p:commandButton value="Delete"  onclick="PF('cd').show()" oncomplete="PF('itemDialog').hide()"/>
+                            <p:commandButton value="Delete"  onclick="PF('cd').show()" oncomplete="PF('itemDialog').hide()" validateClient="true"/>
                         </f:facet>
                     </p:panelGrid>
                 </h:form>
             </p:dialog>
-            <p:dialog header="Add New Item" widgetVar="newItemDialog" resizable="false" id="newItemDlg" modal="true">
+            <p:dialog header="Add New Item" widgetVar="newItemDialog" resizable="false" id="newItemDialog" modal="true">
                 <h:form id="newItemForm">
                     <p:messages autoUpdate="true" infoStyle="color:darkgreen" errorStyle="color:darkred" />
                     <p:panelGrid id="displayNewItem" columns="2" cellpadding="4" style="margin:0 auto;">
 
                         <h:outputText value="Item Code :" ></h:outputText>
-                        <p:inputText  id="itemname" value="#{itemManagedBean.newItem.itemCode}" required="true" requiredMessage="Please Enter Item Name!" label="Item Name "></p:inputText>
+                        <p:inputText  id="itemcode" value="#{itemManagedBean.newItem.itemCode}" required="true" requiredMessage="Please Enter Item Code!" label="Item Code "></p:inputText>
+                        <h:outputText value="Item Name :" ></h:outputText>
+                        <p:inputText  id="itemname" value="#{itemManagedBean.newItem.itemName}" required="true" requiredMessage="Please Enter Item Name!" label="Item Name "></p:inputText>
                         <h:outputText value="Item  Value :"></h:outputText>
-                        <p:inputTextarea rows="6" cols="33" value="#{itemManagedBean.newItem.itemValue}" required="true" requiredMessage="Please Enter Item Code!" label="Item Code"></p:inputTextarea>
+                        <p:inputTextarea rows="6" cols="33" value="#{itemManagedBean.newItem.itemValue}" required="true" requiredMessage="Please Enter Item Value!" label="Item Value"></p:inputTextarea>
 
                         <f:facet name="footer">
                             <p:commandButton value="Submit" update=":itemTableForm:itemTable"  oncomplete="if(!args.validationFailed) PF('newItemDialog').hide()" validateClient="true" actionListener="#{itemManagedBean.create}"/>

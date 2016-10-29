@@ -1,5 +1,7 @@
 package com.btcc.wsm.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -9,7 +11,7 @@ import java.util.Date;
  *
  */
 @Entity
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
+@Table(name="customer")
 public class Customer implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -47,7 +49,7 @@ public class Customer implements Serializable {
     @Column(name="home_number")
     private String homeNumber;
 
-    private byte isDeleted;
+    private boolean isDeleted=false;
 
     @Column(name="mobile_number")
     private String mobileNumber;
@@ -70,6 +72,15 @@ public class Customer implements Serializable {
     @Column(name="updated_by")
     private String updatedBy;
 
+    @Column(name="isDeleted", columnDefinition="NUMBER(1)")
+    @Type(type="org.hibernate.type.NumericBooleanType")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
     public Customer() {
     }
 
@@ -175,14 +186,6 @@ public class Customer implements Serializable {
 
     public void setHomeNumber(String homeNumber) {
         this.homeNumber = homeNumber;
-    }
-
-    public byte getIsDeleted() {
-        return this.isDeleted;
-    }
-
-    public void setIsDeleted(byte isDeleted) {
-        this.isDeleted = isDeleted;
     }
 
     public String getMobileNumber() {

@@ -13,6 +13,6 @@ public interface CustomerService {
     Customer update(Customer customer);
     Customer findSingle(int id);
     List<Customer> findAll();
-    void delete(Customer customer);
+    Customer delete(Customer customer);
 
 }
