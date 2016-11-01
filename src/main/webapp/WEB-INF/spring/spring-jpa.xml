@@ -33,12 +33,21 @@
 		</property>
 	</bean>
 
+<<<<<<< HEAD
       <!--<jee:jndi-lookup id="bpsdatasource" jndi-name="java:jboss/datasources/WMSDS" cache="true" lookup-on-startup="true"/>-->
     <bean id="bpsdatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url" value="jdbc:mysql://localhost:3306/wms" />
 		<property name="username" value="root" />
 	   <property name="password" value="shyam" />
+=======
+	<!--<jee:jndi-lookup id="bpsdatasource" jndi-name="java:jboss/datasources/WMSDS" cache="true" lookup-on-startup="true"/>-->
+	<bean id="bpsdatasource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/wms" />
+		<property name="username" value="root" />
+		<property name="password" value="kiran" />
+>>>>>>> refs/remotes/origin/master
 	</bean>
 	
 
