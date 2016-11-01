@@ -65,7 +65,7 @@ public class AccessRightsServiceImpl implements AccessRightsService {
 
 
     public List<AccessRights> findAll() {
-        List<AccessRights> accessRightsList = accessRightsRepository.findAll();
+        List<AccessRights> accessRightsList = accessRightsRepository.findAllByIsDeletedOrderByCreationTimeDesc(false);
         return accessRightsList;
     }
 
@@ -77,6 +77,7 @@ public class AccessRightsServiceImpl implements AccessRightsService {
             if(accessRightsToBeUpdated != null)
             {
                 accessRightsToBeUpdated.setId(accessRights.getId());
+                accessRightsToBeUpdated.setActive(accessRights.isActive());
                 accessRightsToBeUpdated.setAccessRights(accessRights.getAccessRights());
                 accessRightsToBeUpdated.setDescription(accessRights.getDescription());
                 accessRightsToBeUpdated.setLastModifiedBy(accessRights.getLastModifiedBy());

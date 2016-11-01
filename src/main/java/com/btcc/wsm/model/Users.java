@@ -1,24 +1,12 @@
 package com.btcc.wsm.model;
 
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
-
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="user")
@@ -46,11 +34,11 @@ public class Users implements Serializable{
 	private String email;
 
 	
-	@Column(name="controlUnit", nullable=false)
-	private String controlUnit;
+	/*@Column(name="controlUnit", nullable=false)
+	private String controlUnit;*/
 	
-	@Column(name="branchNo", nullable=false)
-	private String branchNo;
+	/*@Column(name="branchNo", nullable=false)
+	private String branchNo;*/
 	
 	@Column(name="createdBy",nullable=true)
 	private String createdBy;
@@ -74,6 +62,7 @@ public class Users implements Serializable{
 	
 	
 	private boolean enabled=false;
+	private boolean active=true;
 	
 	public Users(){
 		
@@ -161,20 +150,20 @@ public class Users implements Serializable{
 
 	
 	
-	public String getControlUnit() {
+	/*public String getControlUnit() {
 		return controlUnit;
 	}
 	public void setControlUnit(String controlUnit) {
 		this.controlUnit = controlUnit;
-	}
+	}*/
 	
 
-	public String getBranchNo() {
+	/*public String getBranchNo() {
 		return branchNo;
 	}
 	public void setBranchNo(String branchNo) {
 		this.branchNo = branchNo;
-	}
+	}*/
 	
 
 	public Set<Role> getUserRoles() {
@@ -184,7 +173,16 @@ public class Users implements Serializable{
 	public void setUserRoles(Set<Role> userRoles) {
 		this.userRoles = userRoles;
 	}
-	
+
+	@Column(name = "isDeleted", columnDefinition = "NUMBER(1)")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	
 }
 

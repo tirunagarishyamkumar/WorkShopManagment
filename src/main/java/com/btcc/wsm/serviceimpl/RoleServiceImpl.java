@@ -2,9 +2,9 @@ package com.btcc.wsm.serviceimpl;
 
 import com.btcc.wsm.model.AccessRights;
 import com.btcc.wsm.model.Role;
+import com.btcc.wsm.repository.CustomRepository;
 import com.btcc.wsm.repository.RoleRepository;
 import com.btcc.wsm.repository.UsersRepository;
-import com.btcc.wsm.repository.CustomRepository;
 import com.btcc.wsm.service.RoleService;
 import com.btcc.wsm.util.WSMException;
 import org.apache.logging.log4j.LogManager;
@@ -49,7 +49,6 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-
     @Transactional(rollbackFor=WSMException.class)
     public Role delete(int id){
         try{
@@ -66,10 +65,8 @@ public class RoleServiceImpl implements RoleService {
         }
     }
 
-
-
     public List<Role> findAll() {
-        List<Role> resultList = roleRepository.findAll();
+        List<Role> resultList = roleRepository.findAllByIsDeletedOrderByCreationTimeDesc(false);
         return resultList;
     }
 
@@ -79,13 +76,13 @@ public class RoleServiceImpl implements RoleService {
         return resultSet;
     }
 
-
     @Transactional(rollbackFor={Exception.class,WSMException.class})
     public Role update(Role role){
         try{
             Role roleToBeUpdated = roleRepository.findOne(role.getId());
             if(roleToBeUpdated != null){
                 roleToBeUpdated.setId(role.getId());
+                roleToBeUpdated.setActive(role.isActive());
                 roleToBeUpdated.setRole(role.getRole());
                 roleToBeUpdated.setDescription(role.getDescription());
                 roleToBeUpdated.setLastModifiedBy(role.getLastModifiedBy());
@@ -102,8 +99,6 @@ public class RoleServiceImpl implements RoleService {
             throw new WSMException("err.role.update", e);
         }
     }
-
-
 
     public Role findByRole(String role)  {
         Role foundRole = roleRepository.findByRole(role);
@@ -137,7 +132,7 @@ public class RoleServiceImpl implements RoleService {
     }
 
     public boolean checkRole(String role){
-        Role  roles= roleRepository.findByRole(role);
+        Role roles= roleRepository.findByRole(role);
         if(roles!=null)
             return true;
         return false;

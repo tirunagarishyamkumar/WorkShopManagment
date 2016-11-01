@@ -1,27 +1,17 @@
 package com.btcc.wsm.web.managedbean;
 
-import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.bean.RequestScoped;
-import javax.faces.context.FacesContext;
-
 import com.btcc.wsm.model.AccessRights;
 import com.btcc.wsm.model.Role;
 import com.btcc.wsm.model.Users;
 import com.btcc.wsm.service.AccessRightsService;
 import com.btcc.wsm.service.RoleService;
 import com.btcc.wsm.service.SystemAuditTrailRecordService;
+import com.btcc.wsm.service.UsersService;
 import com.btcc.wsm.util.FacesUtil;
 import com.btcc.wsm.util.SystemAuditTrailActivity;
 import com.btcc.wsm.util.SystemAuditTrailLevel;
 import com.btcc.wsm.util.WSMException;
 import com.btcc.wsm.web.datamodel.RoleDataModel;
-import com.btcc.wsm.service.UsersService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.primefaces.context.RequestContext;
@@ -30,6 +20,14 @@ import org.primefaces.model.DualListModel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 
 @Component
@@ -41,7 +39,7 @@ public class RoleManagedBean implements Serializable {
 	private UsersService usersService;
 
 	@Autowired
-	RoleService roleService;
+    RoleService roleService;
 
 	final static Logger logger = LogManager.getLogger(RoleManagedBean.class);
 
@@ -144,7 +142,7 @@ public class RoleManagedBean implements Serializable {
 				newRole.setAccessRights(selectedAccessRightsSet);
 				getRoleService().create(newRole);
 				setInsertDelete(true);
-				if (roleList == null || insertDelete == true) {
+				if (roleList == null || insertDelete) {
 					roleList = roleService.findAll();
 				}
 
@@ -287,7 +285,7 @@ public class RoleManagedBean implements Serializable {
 
 			getRoleService().delete(selectedRole.getId());
 			setInsertDelete(true);
-			if (roleList == null || insertDelete == true) {
+			if (roleList == null || insertDelete) {
 				roleList = roleService.findAll();
 			}
 			systemAuditTrailRecordService.log(SystemAuditTrailActivity.UPDATED,

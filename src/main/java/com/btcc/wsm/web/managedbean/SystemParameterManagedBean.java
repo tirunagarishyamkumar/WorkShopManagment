@@ -1,13 +1,6 @@
 package com.btcc.wsm.web.managedbean;
 
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
-
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
-import javax.faces.view.ViewScoped;
-
+import com.btcc.wsm.constant.AccessRightsConstants;
 import com.btcc.wsm.model.SystemParameter;
 import com.btcc.wsm.model.Users;
 import com.btcc.wsm.service.SystemAuditTrailRecordService;
@@ -25,6 +18,13 @@ import org.primefaces.event.SelectEvent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.List;
+
 @Component
 @ViewScoped
 public class SystemParameterManagedBean implements Serializable {
@@ -34,9 +34,8 @@ public class SystemParameterManagedBean implements Serializable {
 	@Autowired
 	private UsersService usersService;
 	@Autowired
-	SystemParameterService systemParametersService;
-	final static Logger logger = LogManager
-			.getLogger(SystemParameterManagedBean.class);
+    SystemParameterService systemParametersService;
+	final static Logger logger = LogManager.getLogger(SystemParameterManagedBean.class);
 
 	private List<SystemParameter> systemParametersList;
 	private SystemParametersDataModel systemParametersDataModel;
@@ -125,17 +124,21 @@ public class SystemParameterManagedBean implements Serializable {
 
 	public void doCreateSystemParameter() {
 
-
+		if (getSystemParametersService().checkPropertyName(newSystemParameters.getPropertyName())) {
+			System.out.println("PropetyName already Exist");
+			FacesMessage msg = new FacesMessage("FAILURE : SystemParameters " + newSystemParameters.getPropertyName() + " Already Exists");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return;
+		} else {
 			try {
 				logger.info("SystemParameterManagedBean.doCreateSystemParameter is creating property name: "
 						+ newSystemParameters.getPropertyName()
 						+ "and propertyValue"
 						+ newSystemParameters.getPropertyValue());
-				loggedInUser = (Users) FacesUtil
-						.getSessionMapValue("LOGGEDIN_USER");
+				loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
 				newSystemParameters.setDeleted(false);
-				newSystemParameters.setCreatedBy(getLoggedInUser()
-						.getUsername());
+				newSystemParameters.setCreatedBy(getLoggedInUser().getUsername());
 				newSystemParameters.setCreationTime(new java.util.Date());
 				getSystemParametersService().create(newSystemParameters);
 				setInsertDelete(true);
@@ -149,11 +152,7 @@ public class SystemParameterManagedBean implements Serializable {
 				// schedule house keeping archive
 				String propertyName = newSystemParameters.getPropertyName();
 
-				FacesContext
-						.getCurrentInstance()
-						.addMessage(
-								null,
-								new FacesMessage(
+				FacesContext.getCurrentInstance().addMessage(null,new FacesMessage(
 										"SUCCESS : New System Parameter record created"));
 				newSystemParameters = new SystemParameter();
 				if (systemParametersList == null || insertDelete == true) {
@@ -177,9 +176,16 @@ public class SystemParameterManagedBean implements Serializable {
 			}
 
 	}
+	}
 
 	public void doUpdateSystemParameter() {
+		if (getSystemParametersService().checkPropertyNameWithId(selectedSystemParameters.getPropertyName(), selectedSystemParameters.getId())) {
+			FacesMessage msg = new FacesMessage("FAILURE : SystemParameters " + selectedSystemParameters.getPropertyName() + "  Already Exists");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return;
 
+		} else {
 			try {
 				logger.info("SystemParameterManagedBean.doUpdateSystemParameter is updating  property name: "
 						+ selectedSystemParameters.getPropertyName()
@@ -224,6 +230,7 @@ public class SystemParameterManagedBean implements Serializable {
 
 			}
 
+		}
 	}
 
 	public void doDeleteSystemParameter() {
@@ -267,10 +274,6 @@ public class SystemParameterManagedBean implements Serializable {
 	}
 
 
-	public void onRowSelect(SelectEvent event) {
-		setSelectedSystemParameters((SystemParameter) event.getObject());
-
-	}
 
 	public void showDialogue() {
 
@@ -278,6 +281,39 @@ public class SystemParameterManagedBean implements Serializable {
 				"PF('newSystemParametersDialog').show()");
 		return;
 
+	}
+
+
+	void checkBeforeUpdate() {
+		loggedInUser = (Users) FacesUtil.getSessionMapValue("LOGGEDIN_USER");
+		HashSet<String> accessRights = usersService.getAccessRightsMapForUser(getLoggedInUser().getUsername());
+		if (accessRights.contains(AccessRightsConstants.ACCESS_FOR_UPDATE_SYSTEM_PARAMETERS) || accessRights.contains(AccessRightsConstants.ACCESS_FOR_DELETE_SYSTEM_PARAMETERS)) {
+			if ((getLoggedInUser().getUsername().equalsIgnoreCase("system")) && selectedSystemParameters.getCreatedBy().equalsIgnoreCase("system")) {
+				RequestContext.getCurrentInstance().execute("PF('systemParameterDialog').show()");
+			} else {
+				if (!(getLoggedInUser().getUsername().equalsIgnoreCase("system")) && !(selectedSystemParameters.getCreatedBy().equalsIgnoreCase("system"))) {
+					RequestContext.getCurrentInstance().execute("PF('systemParameterDialog').show()");
+				} else {
+					RequestContext.getCurrentInstance().execute("PF('systemParameterDialog').hide()");
+					FacesMessage msg = new FacesMessage("You Dont have Rights to Update this Record");
+					msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+					FacesContext.getCurrentInstance().addMessage(null, msg);
+					return;
+				}
+			}
+		} else {
+			RequestContext.getCurrentInstance().execute("PF('systemParameterDialog').hide()");
+			FacesMessage msg = new FacesMessage("You Dont have Rights to Update this Record");
+			msg.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, msg);
+			return;
+		}
+
+	}
+
+	public void onRowSelect(SelectEvent event) {
+		setSelectedSystemParameters((SystemParameter) event.getObject());
+		checkBeforeUpdate();
 	}
 
 }

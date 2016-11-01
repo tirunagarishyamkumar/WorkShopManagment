@@ -34,7 +34,13 @@
                  rows="20" paginator="true" paginatorPosition="bottom" paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink}  {RowsPerPageDropdown}" rowsPerPageTemplate="20,50,100" >
           <p:ajax event="rowSelect" listener="#{usersManagedBean.onRowSelect}"  update=":userDetailForm:display, :growl" />  
 	          <p:column width="10%" id="nameHeader" sortBy="#{user.username}"><f:facet name="header"> Username </f:facet> <h:outputText value="#{user.username}" /></p:column>
-	        <p:column width="10%" id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{user.createdBy}" /></p:column>
+			<p:column width="10%" id="statusHeader" resizable="true"
+					  style="text-align:center" sortBy="#{user.active}" filterBy="#{user.active}" filterStyle="display:none">
+				<f:facet name="header">Status </f:facet>
+				<h:outputText
+						value="#{user.active eq true ? 'Active' : 'InActive'}" />
+			</p:column>
+			<p:column width="10%" id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{user.createdBy}" /></p:column>
 	          <p:column width="15%" id="createdTimeHeader"  sortBy="#{user.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{user.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
 	         
 	          <p:column width="15%" id="lastModifiedByHeader"  sortBy="#{user.lastModifiedBy}" ><f:facet name="header"> Last Modified By </f:facet><h:outputText value="#{user.lastModifiedBy}" /></p:column>
@@ -58,11 +64,21 @@
                     	
                     	
                     	<h:outputText value="Assign Groups :"></h:outputText>
-                      	<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
-	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
+                      	<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}" effect="bounce"   showCheckbox="true" responsive="true"    showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" required="true"
+									requiredMessage="Please Assign Group" >
 	          	 			<f:facet name="sourceCaption">Unassigned  Roles</f:facet>  
 	        				<f:facet name="targetCaption">Assigned Roles</f:facet>  
           				</p:pickList>
+					<h:outputText value="Status" styleClass="redasterisk"></h:outputText>
+					<p:selectOneMenu
+							value="#{usersManagedBean.selectedUser.active}"
+							required="true" requiredMessage="Please Enter  Status"
+							label="Status ">
+						<f:selectItem itemLabel="Active" itemValue="true" />
+						<f:selectItem itemLabel="InActive" itemValue="false" />
+
+					</p:selectOneMenu>
                     <f:facet name="footer">
                             <p:commandButton value="Update"   update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('userDialog').hide()" actionListener="#{usersManagedBean.doUpdateUser}" validateClient="true"/>
                             <p:commandButton value="Delete"    onclick="PF('cd').show()" oncomplete="PF('userDialog').hide()"/>
@@ -85,13 +101,21 @@
                     	<p:inputText value="#{usersManagedBean.newUser.email}" required="true" requiredMessage="Please Enter Email!"  label="Email ">  <f:validateLength minimum="4" maximum="30"/></p:inputText>
                     	<h:outputText value="Assign Groups :"></h:outputText>
                       
-    					<p:pickList id="accessRightsPickList" value="#{usersManagedBean.dualRoleList}"
-	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel="#{role0.description}" >
-	          		
-	          		
-	          	 			<f:facet name="sourceCaption">Unassigned  Groups</f:facet>  
+    					<p:pickList id="accessRightsPickList1" effect="bounce"   showCheckbox="true" responsive="true"
+									showSourceFilter="true" showTargetFilter="true" filterMatchMode="contains"
+									value="#{usersManagedBean.dualRoleList}"
+	          				var="role0" converter="rolePickListConverter" itemValue="#{role0}" itemLabel=" #{role0.role} / #{role0.description}"  required="true"
+									requiredMessage="Please Assign Group" >
+	          	 			<f:facet name="sourceCaption">Unassigned  Groups</f:facet>
 	        				<f:facet name="targetCaption">Assigned Groups</f:facet>  
           				</p:pickList>
+					<h:outputText value="Status" styleClass="redasterisk"></h:outputText>
+					<p:selectOneMenu value="#{usersManagedBean.newUser.active}"
+									 required="true" requiredMessage="please Enter  Status"
+									 label="Status ">
+						<f:selectItem itemLabel="Active" itemValue="true" />
+						<f:selectItem itemLabel="InActive" itemValue="false" />
+					</p:selectOneMenu>
                     	<f:facet name="footer">
                             <p:commandButton value="Submit" update=":userTableForm:userTable"  oncomplete="if(!args.validationFailed) PF('newUserDialog').hide()" validateClient="true" actionListener="#{usersManagedBean.doCreateUser}"/>
                             <p:commandButton value="Cancel" oncomplete="PF('newUserDialog').hide()"></p:commandButton>

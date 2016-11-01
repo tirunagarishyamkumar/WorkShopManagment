@@ -43,8 +43,14 @@
           	<p:ajax event="rowSelect" listener="#{accessRightsManagedBean.onRowSelect}" update=":accessRightsDetailForm:display, :growl"  />  
           	<p:column id="accessRightHeader"  sortBy="#{accessRights0.accessRights}" ><f:facet name="header"> Access Right</f:facet><h:outputText value="#{accessRights0.accessRights}" /></p:column>  
           	<p:column width="25%" id="descHeader"  sortBy="#{accessRights0.description}" ><f:facet name="header"> Description</f:facet><h:outputText value="#{accessRights0.description}" /></p:column>
-          	 <p:column id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{accessRights0.createdBy}" /></p:column>
-	    <p:column id="createdTimeHeader"  sortBy="#{user.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{accessRights0.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
+            <p:column width="10%" id="statusHeader" resizable="true"
+                      style="text-align:center" sortBy="#{accessRights0.active}" filterBy="#{accessRights0.active}" filterStyle="display:none">
+                <f:facet name="header">Status </f:facet>
+                <h:outputText
+                        value="#{accessRights0.active eq true ? 'Active' : 'InActive'}" />
+            </p:column>
+          	  <p:column id="createdByHeader"  sortBy="#{user.createdBy}" ><f:facet name="header"> Created By </f:facet><h:outputText value="#{accessRights0.createdBy}" /></p:column>
+               <p:column id="createdTimeHeader"  sortBy="#{user.creationTime}" ><f:facet name="header"> Creation Time</f:facet><h:outputText value="#{accessRights0.creationTime}" ><f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /></h:outputText></p:column>
           	<p:column id="lastModifiedByHeader"  sortBy="#{accessRights0.lastModifiedBy}" > <f:facet name="header"> Last Modified By</f:facet><h:outputText value="#{accessRights0.lastModifiedBy}" /> </p:column>
 	        <p:column id="lastModifiedTimeHeader"  sortBy="#{accessRights0.lastModifiedTime}" ><f:facet name="header"> Last Modified Time</f:facet><h:outputText value="#{accessRights0.lastModifiedTime}" >  <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" /> </h:outputText> </p:column>
        </p:dataTable>
@@ -61,6 +67,16 @@
             <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "></h:inputText>
             <h:outputText value="Description"></h:outputText>
             <h:inputText value="#{accessRightsManagedBean.selectedAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></h:inputText>
+               <h:outputText value="Status" styleClass="redasterisk"></h:outputText>
+               <p:selectOneMenu
+                       value="#{accessRightsManagedBean.selectedAccessRights.active}"
+                       required="true" requiredMessage="Please Enter  Status"
+                       label="Status ">
+                   <f:selectItem itemLabel="Active" itemValue="true" />
+                   <f:selectItem itemLabel="InActive" itemValue="false" />
+
+               </p:selectOneMenu>
+
                     <f:facet name="footer">
                             <p:commandButton value="Update"  update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed)  PF('accessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doUpdateAccessRights}"/>
                             <p:commandButton value="Delete" onclick="PF('cd').show()" oncomplete="PF('accessRightsDialog').hide()"/>
@@ -77,6 +93,14 @@
             <p:inputText value="#{accessRightsManagedBean.newAccessRights.accessRights}" required="true" requiredMessage="Please Enter Name!" label="Name "></p:inputText>
             <h:outputText value="Description"></h:outputText>           
 			<p:inputText value="#{accessRightsManagedBean.newAccessRights.description}" required="true" requiredMessage="please Enter Description" label="Description "><f:validateLength minimum="4"/></p:inputText>
+               <h:outputText value="Status" styleClass="redasterisk"></h:outputText>
+               <p:selectOneMenu
+                       value="#{accessRightsManagedBean.newAccessRights.active}"
+                       required="true" requiredMessage="Please Enter  Status"
+                       label="Status ">
+                   <f:selectItem itemLabel="Active" itemValue="true" />
+                   <f:selectItem itemLabel="InActive" itemValue="false" />
+               </p:selectOneMenu>
             <f:facet name="footer">
                             <p:commandButton value="Submit" update=":accessRightsTableForm:accessRightsTable"  oncomplete="if(!args.validationFailed) PF('newAccessRightsDialog').hide()" validateClient="true" actionListener="#{accessRightsManagedBean.doCreateAccessRights}"/>
                             <p:commandButton value="Cancel" oncomplete="PF('newAccessRightsDialog').hide()"></p:commandButton>

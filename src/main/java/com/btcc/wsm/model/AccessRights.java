@@ -1,19 +1,11 @@
 package com.btcc.wsm.model;
 
 
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
-
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
-
-import org.hibernate.annotations.Type;
 
 @Entity
 @Table(name="access_right")
@@ -48,7 +40,8 @@ public class AccessRights implements Serializable{
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date lastModifiedTime;
 	
-	private boolean isDeleted = false;   
+	private boolean isDeleted = false;
+	private boolean active=true;
 	   
 
   /*  public AccessRights(int id, String accessRights, String description,
@@ -138,7 +131,16 @@ public class AccessRights implements Serializable{
 		return lastModifiedBy;
 	}
 
-	
+
+	@Column(name = "isDeleted", columnDefinition = "NUMBER(1)")
+	@Type(type = "org.hibernate.type.NumericBooleanType")
+	public boolean isActive() {
+		return active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
+	}
 	@Override
 	public boolean equals(Object obj) {
 		AccessRights inputAccessRights = (AccessRights) obj;
