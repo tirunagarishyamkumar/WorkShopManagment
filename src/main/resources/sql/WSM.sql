@@ -156,7 +156,6 @@ CREATE TABLE `item`(
 
 );
 
-<<<<<<< HEAD
 alter table system_parameter add active bit;
 update  system_parameter set active=1;
 
@@ -168,7 +167,12 @@ update  role set active=1;
 
 alter table access_right add active bit;
 update  access_right set active=1;
-=======
+
+
+alter table user drop column controlUnit;
+
+alter table user drop column branchNo;
+
 -- receipt
 
 CREATE TABLE receipt(
@@ -235,7 +239,7 @@ CREATE TABLE job_sheet_detail(
 );
 
 -- supplier
->>>>>>> refs/remotes/origin/master
+
 
 CREATE TABLE `supplier`(
 	`id` int AUTO_INCREMENT NOT NULL,
