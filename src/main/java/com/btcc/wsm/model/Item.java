@@ -1,5 +1,7 @@
 package com.btcc.wsm.model;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -25,6 +27,8 @@ public class Item implements Serializable {
     @Column(name="item_value", nullable=false)
     private String itemValue;
 
+    @Column(name="item_name", nullable=false)
+    private String itemName;
 
     @Column(name="created_by",nullable=true)
     private String createdBy;
@@ -40,6 +44,8 @@ public class Item implements Serializable {
     @Column(name="update_time",nullable=true)
     @Temporal(TemporalType.TIMESTAMP)
     private java.util.Date lastModifiedTime;
+
+    private boolean isDeleted = false;
 
     public int getId() {
         return id;
@@ -97,16 +103,35 @@ public class Item implements Serializable {
         this.lastModifiedTime = lastModifiedTime;
     }
 
+    @Column(name="isDeleted", columnDefinition="NUMBER(1)")
+    @Type(type="org.hibernate.type.NumericBooleanType")
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
+    public void setDeleted(boolean isDeleted) {
+        this.isDeleted = isDeleted;
+    }
+    public String getItemName() {
+        return itemName;
+    }
+
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
     @Override
     public String toString() {
         return "Item{" +
                 "id=" + id +
                 ", itemCode='" + itemCode + '\'' +
                 ", itemValue='" + itemValue + '\'' +
+                ", itemName='" + itemName + '\'' +
                 ", createdBy='" + createdBy + '\'' +
                 ", creationTime=" + creationTime +
                 ", lastModifiedBy='" + lastModifiedBy + '\'' +
                 ", lastModifiedTime=" + lastModifiedTime +
+                ", isDeleted=" + isDeleted +
                 '}';
     }
 }

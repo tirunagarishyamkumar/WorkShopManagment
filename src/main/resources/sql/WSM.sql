@@ -147,6 +147,7 @@ CREATE TABLE `item`(
 	`id` int AUTO_INCREMENT NOT NULL,
 	`item_code` varchar(45) NOT NULL,
 	`item_name` varchar(255) NULL,
+	`created_by` varchar(255) NULL,
 	`creation_time` datetime NULL,
 	`isDeleted` tinyint NOT NULL,
 	`updated_by` varchar(255) NULL,
@@ -167,6 +168,190 @@ update  role set active=1;
 alter table access_right add active bit;
 update  access_right set active=1;
 
+
+alter table user drop column controlUnit;
+
+alter table user drop column branchNo;
+
+-- receipt
+
+CREATE TABLE receipt(
+	id int AUTO_INCREMENT NOT NULL,
+	receipt_no varchar(10) NOT NULL,
+	receipt_date datetime NOT NULL,
+	received_from varchar(100) NOT NULL,
+	description varchar(255) NULL,
+	payment_method varchar(255) NOT NULL,
+	amount decimal(15,2) NOT NULL,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id)
+
+);
+
+-- Job Sheet
+
+
+CREATE TABLE job_sheet(
+	id int AUTO_INCREMENT NOT NULL,
+	job_sheet_number varchar(10) NOT NULL,
+	name varchar(100) NOT NULL,
+	sheetdate datetime NULL,
+	remark  varchar(255) NULL,
+	totalamount decimal(15,2) NOT NULL,
+	discount decimal(15,2) NOT NULL,
+	netamount decimal(15,2) NOT NULL,
+	status varchar(100) NOT NULL,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id)
+
+);
+
+
+CREATE TABLE job_sheet_detail(
+	id int AUTO_INCREMENT NOT NULL,
+	job_sheet_id int not null,
+	item_id int not null,
+	qty int not null,
+	price decimal(15,2) NOT NULL,
+	remark varchar(100) NOT NULL,
+	user_id int not null,
+	amount decimal(15,2) NOT NULL,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY fk_job_sheet_detail(job_sheet_id)
+	REFERENCES job_sheet(id),
+	FOREIGN KEY fk_job_sheet_detail_item(item_id)
+	REFERENCES item(id),
+	FOREIGN KEY fk_job_sheet_detail_user(user_id)
+	REFERENCES user(id)
+);
+
+-- supplier
+
+
+CREATE TABLE `supplier`(
+	`id` int AUTO_INCREMENT NOT NULL,
+	`name` varchar(100) NOT NULL,
+	`account_number` varchar(100) NOT NULL,
+	`taxid_no` varchar(100) NOT NULL,
+	`term` varchar(100) NOT NULL,
+	`email` varchar(100) NOT NULL,
+	`address` varchar(255) NOT NULL,
+	`city` varchar(30) NOT NULL,
+	`state` varchar(100) NOT NULL,
+	`country` varchar(100) NOT NULL,
+	`postalcode` int NOT NULL,
+	`mobile_number` varchar(255) NOT NULL,
+	`home_number` varchar(255) NOT NULL,
+	`created_by` varchar(255) NULL,
+	`creation_time` datetime NULL,
+	`updated_by` varchar(255) NULL,
+	`update_time` datetime NULL,
+	`isDeleted` tinyint NOT NULL,
+	PRIMARY KEY (id));
+
+-- purchase
+
+
+CREATE TABLE purchase(
+	id int AUTO_INCREMENT NOT NULL,
+	purchase_number varchar(100) NOT NULL,
+	branch varchar(100) NOT NULL,
+	document_number varchar(100) NOT NULL,
+	date datetime NULL,
+	remark  varchar(255) NULL,
+	supplier_id int not null,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id)
+
+);
+
+
+CREATE TABLE purchase_detail(
+	id int AUTO_INCREMENT NOT NULL,
+	purchase_id int not null,
+	item_id int not null,
+	qty int not null,
+	price decimal(15,2) NOT NULL,
+	remark varchar(100) NOT NULL,
+	amount decimal(15,2) NOT NULL,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY fk_purchase_detail(purchase_id)
+	REFERENCES purchase(id),
+	FOREIGN KEY fk_purchase_detail_item(item_id)
+	REFERENCES item(id)
+
+);
+
+-- finance
+
+CREATE TABLE payment_voucher(
+	id int AUTO_INCREMENT NOT NULL,
+	purchase_id int not null,
+	payment_voucher_no varchar(100) NOT NULL,
+  branch varchar(100) NOT NULL,
+	cashbook varchar(100) NOT NULL,
+	voucher_type varchar(100) NOT NULL,
+  pay_to varchar(100) NOT NULL,
+	amount decimal(15,2) NOT NULL,
+	remark varchar(100) NOT NULL,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY fk_payment_voucher(purchase_id)
+	REFERENCES purchase(id),
+	FOREIGN KEY fk_purchase_detail_item(item_id)
+	REFERENCES item(id)
+
+);
+
+
+CREATE TABLE note(
+	id int AUTO_INCREMENT NOT NULL,
+	purchase_id int not null,
+	payment_voucher_no varchar(100) NOT NULL,
+	branch varchar(100) NOT NULL,
+	cashbook varchar(100) NOT NULL,
+	voucher_type varchar(100) NOT NULL,
+	pay_to varchar(100) NOT NULL,
+	amount decimal(15,2) NOT NULL,
+	remark varchar(100) NOT NULL,
+	created_by varchar(255) NULL,
+	creation_time datetime NULL,
+	isDeleted tinyint NOT NULL,
+	updated_by varchar(255) NULL,
+	update_time datetime NULL,
+	PRIMARY KEY (id),
+	FOREIGN KEY fk_payment_voucher(purchase_id)
+	REFERENCES purchase(id),
+	FOREIGN KEY fk_purchase_detail_item(item_id)
+	REFERENCES item(id)
+
+);
 
 
 
